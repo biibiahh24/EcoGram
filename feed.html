@@ -1,91 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feed - Sustagram</title>
-  <link rel="stylesheet" href="feed.css">
-  <script src="js/script.js" defer></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c1712"><meta name="description" content="EcoGram: protótipo de comunidade digital para compartilhar hábitos sustentáveis.">
+<title>Comunidade | EcoGram</title><link rel="stylesheet" href="feed.css"><script src="js_script.js" defer></script>
 </head>
 <body>
-
-  <!-- Cabeçalho -->
-  <header>
-    <h1>Sustagram 🌱</h1>
-    <nav>
-      <a href="feed.html" class="active">Feed</a>
-      <a href="explorar.html">Explorar</a>
-      <a href="notificacoes.html">Notificações</a>
-      <a href="perfil.html">Perfil</a>
-      <a href="configuracao.html">⚙️</a>
-    </nav>
-  </header>
-
-  <!-- Stories -->
-  <section class="stories">
-    <div class="story" onclick="openStory('img1.jpg','Maria')">
-      <img src="perfil.png" alt="Maria">
-      <p>Maria</p>
-    </div>
-    <div class="story" onclick="openStory('img2.jpg','Lucas')">
-      <img src="perfil.png" alt="Lucas">
-      <p>Lucas</p>
-    </div>
-    <div class="story" onclick="openStory('img3.jpg','Ana')">
-      <img src="perfil.png" alt="Ana">
-      <p>Ana</p>
-    </div>
-  </section>
-
-  <!-- Feed -->
-  <main>
-    <!-- Post 1 -->
-    <article class="post">
-      <div class="post-header">
-        <img src="perfil.png" alt="Maria Verde" class="perfil">
-        <strong>Maria Verde</strong>
-      </div>
-      <img src="imagem3.png" alt="Postagem de Maria" class="post-img">
-      <div class="perfil.png">
-        <button onclick="like(this)">❤️</button>
-        <button onclick="toggleComment('c1')">💬</button>
-        <button onclick="alert('Compartilhado!')">🔄</button>
-        <span id="likes-count">0 curtidas</span>
-      </div>
-      <div id="c1" class="comments" style="display:none;">
-        <input type="text" placeholder="Adicione um comentário...">
-        <button onclick="sendComment('c1')">Enviar</button>
-      </div>
-    </article>
-
-    <!-- Post 2 -->
-    <article class="post">
-      <div class="post-header">
-        <img src="perfil.png" alt="Lucas Silva" class="perfil">
-        <strong>Lucas Silva</strong>
-      </div>
-      <img src="imagem4.png" alt="Postagem de Lucas" class="post-img">
-      <div class="post-actions">
-        <button onclick="like(this)">❤️</button>
-        <button onclick="toggleComment('c2')">💬</button>
-        <button onclick="alert('Compartilhado!')">🔄</button>
-        <span id="likes-count">0 curtidas</span>
-      </div>
-      <div id="c2" class="comments" style="display:none;">
-        <input type="text" placeholder="Adicione um comentário...">
-        <button onclick="sendComment('c2')">Enviar</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Rodapé -->
-  <footer>
-    <a href="feed.html" class="active">🏠</a>
-    <a href="explorar.html">🔍</a>
-    <a href="postar.html">➕</a>
-    <a href="notificacoes.html">❤️</a>
-    <a href="perfil.html">👤</a>
-  </footer>
-
-</body>
-</html>
+<a class="skip-link" href="#conteudo">Pular para conteúdo</a>
+<header class="site-header"><div class="shell header-inner"><a class="brand" href="index.html" aria-label="EcoGram, início"><span class="brand-icon">✳</span>Eco<span>Gram</span></a><nav class="top-nav" aria-label="Navegação principal"><a class="active" aria-current="page" href="feed.html">Comunidade</a><a href="explorar.html">Explorar</a><a href="desafios.html">Desafios</a><a href="ranking.html">Ranking</a></nav><span class="demo-label">Protótipo demonstrativo</span></div></header>
+<main id="conteudo" class="shell page-grid">
+<section class="feed-column" aria-label="Publicações da comunidade">
+<div class="intro"><p class="eyebrow">COMUNIDADE ECOGRAM</p><h1>Pequenas atitudes.<br><em>Grandes mudanças.</em></h1><p>Compartilhe ideias, descubra iniciativas e inspire uma rotina mais sustentável.</p></div>
+<section class="stories-card" aria-label="Pessoas da comunidade"><div class="section-title"><h2>Comunidade</h2><span>Inspiração diária</span></div><div class="stories"><div class="story"><img src="perfil.png" alt=""><span>Maria</span></div><div class="story"><img src="perfil.png" alt=""><span>Lucas</span></div><div class="story"><img src="perfil.png" alt=""><span>Ana</span></div></div></section>
+<div class="section-title"><h2>Publicações</h2><span>Exemplos demonstrativos</span></div>
+<article class="post"><div class="post-header"><img src="perfil.png" alt="" class="avatar"><div><strong>Maria Verde</strong><small>Compartilhando ideias sustentáveis</small></div><span class="post-tag">♻ Reciclagem</span></div><img class="post-img" src="imagem3.png" alt="Publicação ilustrativa sobre sustentabilidade" loading="lazy"><div class="post-body"><p>Um hábito de cada vez também transforma o planeta. 🌱</p><div class="post-actions"><button type="button" data-like aria-pressed="false" aria-label="Curtir publicação de Maria">♡ <span>Curtir</span></button><button type="button" data-comment="c1" aria-expanded="false">♧ Comentar</button><span data-count>0 curtidas</span></div><div class="comments" id="c1" hidden><div class="comment-list" aria-live="polite"></div><form class="comment-form"><label for="comment1">Seu comentário</label><div class="comment-input"><input id="comment1" maxlength="180" placeholder="Escreva algo positivo..." required><button type="submit">Enviar</button></div></form></div></div></article>
+<article class="post"><div class="post-header"><img src="perfil.png" alt="" class="avatar"><div><strong>Lucas Silva</strong><small>Ideias para um futuro melhor</small></div><span class="post-tag">🌿 Natureza</span></div><img class="post-img" src="imagem4.png" alt="Publicação ilustrativa sobre natureza" loading="lazy"><div class="post-body"><p>Qual atitude sustentável você praticou hoje?</p><div class="post-actions"><button type="button" data-like aria-pressed="false" aria-label="Curtir publicação de Lucas">♡ <span>Curtir</span></button><button type="button" data-comment="c2" aria-expanded="false">♧ Comentar</button><span data-count>0 curtidas</span></div><div class="comments" id="c2" hidden><div class="comment-list" aria-live="polite"></div><form class="comment-form"><label for="comment2">Seu comentário</label><div class="comment-input"><input id="comment2" maxlength="180" placeholder="Participe da conversa..." required><button type="submit">Enviar</button></div></form></div></div></article>
+</section>
+<aside class="sidebar" aria-label="Descubra o EcoGram"><section class="aside-card highlight"><span class="eyebrow">DESAFIO DA SEMANA</span><h2>7 dias sem plástico</h2><p>Conheça desafios e pequenas práticas para transformar seus hábitos.</p><a class="btn" href="desafios.html">Ver desafios <span aria-hidden="true">↗</span></a></section><section class="aside-card"><h2>Explore mais</h2><a class="aside-link" href="explorar.html">⌕ Explorar conteúdos <span>→</span></a><a class="aside-link" href="ranking.html">♕ Ranking verde <span>→</span></a><a class="aside-link" href="perfil.html">◎ Perfil demonstrativo <span>→</span></a></section><p class="disclaimer">Este é um projeto de estudo. Curtidas e comentários são locais à página; não há rede social, contas ou persistência de dados reais.</p></aside>
+</main><footer class="site-footer"><div class="shell"><span>© 2026 EcoGram · Projeto de desenvolvimento web</span><a href="https://github.com/biibiahh24/SiteSustentavel" rel="noopener noreferrer" target="_blank">Código no GitHub ↗</a></div></footer>
+</body></html>
