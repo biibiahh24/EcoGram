@@ -1,44 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explorar - Susty</title>
-  <link rel="stylesheet" href="config.css">
-  <script src="/Scripts/js_script.js" defer></script>
-</head>
-<body>
-
-  <header>
-    <h1>Explorar 🔍</h1>
-  </header>
-
-  <main class="explorar-container">
-
-    <section class="pesquisa-box">
-      <input type="text" id="barraPesquisa" placeholder="Pesquisar perfis, postagens, áudios..." oninput="pesquisarExplorar()">
-    </section>
-
-    <section class="filtros-explorar">
-      <button class="filtro ativo" onclick="filtrarExplorar('tudo')">Tudo</button>
-      <button class="filtro" onclick="filtrarExplorar('perfis')">Perfis</button>
-      <button class="filtro" onclick="filtrarExplorar('postagens')">Postagens</button>
-      <button class="filtro" onclick="filtrarExplorar('audios')">Áudios</button>
-    </section>
-
-    <section id="explorarContainer" class="resultados-explorar">
-      <!-- O JS insere os resultados aqui -->
-    </section>
-
-  </main>
-
-  <footer>
-    <a href="/Pages/feed.html">🏠</a>
-    <a href="/Pages/explorar.html" class="active">🔍</a>
-    <a href="/Pages/postar.html">➕</a>
-    <a href="/Pages/notificacoes.html">❤️</a>
-    <a href="/Pages/perfil.html">👤</a>
-  </footer>
-
-</body>
-</html>
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1410"><title>Explorar | EcoGram</title><link rel="stylesheet" href="feed.css"><link rel="stylesheet" href="ecogram-pages.css"><script src="ecogram-pages.js" defer></script></head><body><a class="skip-link" href="#conteudo">Pular para conteúdo</a>
+<header class="site-header"><div class="shell header-inner"><a class="brand" href="index.html"><span class="brand-icon">✳</span>Eco<span>Gram</span></a><nav class="top-nav" aria-label="Navegação principal"><a href="feed.html" >Comunidade</a><a href="explorar.html" class="active" aria-current="page">Explorar</a><a href="desafios.html" >Desafios</a><a href="ranking.html" >Ranking</a></nav><span class="demo-label">Protótipo demonstrativo</span></div></header>
+<main class="shell content-page" id="conteudo"><div class="page-heading"><p class="eyebrow">DESCOBERTA</p><h1>Explore ideias para um <em>futuro mais verde.</em></h1><p>Navegue pelos temas e descubra ideias demonstrativas para uma rotina sustentável.</p></div>
+<label for="buscar" class="field-label">Buscar temas</label><input id="buscar" class="search-field" type="search" placeholder="Ex.: reciclagem, energia, mobilidade..." autocomplete="off">
+<div class="filter-row" role="group" aria-label="Filtrar categorias"><button type="button" class="filter active" data-filter="todos" aria-pressed="true">Todos</button><button type="button" class="filter" data-filter="reciclagem" aria-pressed="false">Reciclagem</button><button type="button" class="filter" data-filter="energia" aria-pressed="false">Energia</button><button type="button" class="filter" data-filter="habitos" aria-pressed="false">Hábitos</button></div>
+<div class="feature-grid" id="explore-grid"><article class="feature-card" data-category="reciclagem"><span>♻️</span><p class="eyebrow">RECICLAGEM</p><h2>Menos descarte, mais reuso</h2><p>Comece separando materiais e reutilizando embalagens no dia a dia.</p></article><article class="feature-card" data-category="energia"><span>⚡</span><p class="eyebrow">ENERGIA</p><h2>Consumo consciente</h2><p>Pequenas escolhas podem reduzir desperdício de energia.</p></article><article class="feature-card" data-category="habitos"><span>🌱</span><p class="eyebrow">HÁBITOS</p><h2>Cultive práticas sustentáveis</h2><p>Descubra como hábitos simples podem transformar sua rotina.</p></article><article class="feature-card" data-category="reciclagem"><span>🧴</span><p class="eyebrow">RECICLAGEM</p><h2>Reutilize garrafas</h2><p>Uma alternativa criativa para reduzir o uso de plásticos descartáveis.</p></article><article class="feature-card" data-category="habitos"><span>🚲</span><p class="eyebrow">MOBILIDADE</p><h2>Redescubra seus trajetos</h2><p>Quando possível, prefira caminhar, pedalar ou usar transporte público.</p></article><article class="feature-card" data-category="energia"><span>☀️</span><p class="eyebrow">ENERGIA</p><h2>Aproveite a luz natural</h2><p>Use iluminação natural durante o dia quando for viável.</p></article></div><p class="empty-state" id="empty-results" hidden>Nenhum tema encontrado. Experimente outra busca.</p><p class="demo-notice">Conteúdos demonstrativos criados para apresentar as telas do projeto.</p></main><footer class="site-footer"><div class="shell"><span>© 2026 EcoGram · Projeto de desenvolvimento web</span><a href="https://github.com/biibiahh24/SiteSustentavel" rel="noopener noreferrer" target="_blank">Código no GitHub ↗</a></div></footer></body></html>
