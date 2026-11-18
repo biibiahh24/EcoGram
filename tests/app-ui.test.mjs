@@ -34,3 +34,27 @@ test('Scripts essenciais ligados à interface',()=>{
   const s=readFileSync(p,'utf8');assert.match(s,/<script\s+src=["'][^"']+["']/i,p);
  }
 });
+
+
+test('Sair está presente no Perfil e nas Configurações',()=>{
+ const profile=readFileSync('perfil.html','utf8');
+ const settings=readFileSync('configuracao.html','utf8');
+ const script=readFileSync('app-session.js','utf8');
+ assert.match(profile,/id=["']logout["']/,'Botão Sair do Perfil');
+ assert.match(settings,/id=["']settings-logout["']/,'Sair da conta em Configurações');
+ assert.match(script,/querySelectorAll\('#logout,#settings-logout'\)/,'Ambos usam o mesmo fluxo de saída');
+ assert.match(script,/function ecogramLogout\(\)/,'Fluxo de encerramento');
+ for(const key of ['ecogram-demo-profile','ecogram-session-posts','ecogram-challenge-selections']){
+  assert.match(script,new RegExp(key),'Encerramento remove '+key);
+ }
+ assert.match(script,/pageshow/,'Retorno pelo navegador é revalidado');
+ assert.match(script,/window\.location\.replace\('login\.html'\)/,'Sai para login sem manter perfil no histórico');
+});
+test('Nova identidade está integrada às abas',()=>{
+ for(const p of ['feed.html','explorar.html','desafios.html','perfil.html','postar.html','chat.html','notificacoes.html','ranking.html','configuracao.html']){
+  const s=readFileSync(p,'utf8');
+  assert.match(s,/ecogram-light\.css/,p);
+  assert.match(s,/ecogram-logo\.svg/,p);
+  assert.match(s,/ecogram-mark\.svg/,p);
+ }
+});
