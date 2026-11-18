@@ -150,3 +150,61 @@ body.auth-page:has(> .auth-panel){background:#f4faf1;min-height:100svh}
 @media(max-width:1000px){.welcome-showcase,.signup-showcase{padding:30px 26px}.auth-layout.welcome-layout,.auth-layout.signup-layout{grid-template-columns:minmax(0,1fr) minmax(390px,.95fr)}}
 @media(max-width:900px){.auth-layout.welcome-layout,.auth-layout.signup-layout{grid-template-columns:1fr}.welcome-showcase,.signup-showcase{display:none}.welcome-panel,.signup-panel{min-height:100svh;padding:25px 15px}.signup-panel{justify-content:center}.welcome-card,.signup-card{max-width:500px;width:100%;margin:0 auto}}
 @media(max-width:420px){.welcome-card,.signup-card{padding:26px 20px}.welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{width:215px}.auth-label-row a{font-size:11px}}
+
+
+/* Refinamento do login para acompanhar a tela de cadastro */
+.auth-layout.welcome-layout{
+  grid-template-columns:minmax(0,1fr) minmax(460px,.88fr);
+  background:#f8fbf6;
+}
+.welcome-showcase{
+  padding:clamp(28px,4.2vw,64px) clamp(26px,5vw,78px);
+}
+.welcome-showcase .showcase-content h2{
+  max-width:560px;
+  font-size:clamp(38px,4vw,60px);
+  line-height:1.08;
+}
+.welcome-hero-photo{
+  width:min(100%,500px);
+  height:clamp(190px,22vw,230px);
+  margin-top:26px;
+  border-radius:22px;
+}
+.welcome-social-proof{gap:8px;margin-top:18px}
+.welcome-social-proof span{padding:8px 11px}
+.welcome-panel{
+  max-width:560px;
+  padding:34px clamp(22px,3.2vw,42px);
+}
+.welcome-panel .auth-logo{margin-bottom:18px}
+.welcome-panel .auth-logo .logo-small{width:220px;max-height:96px}
+.welcome-card{
+  width:100%;
+  padding:34px clamp(25px,3vw,40px);
+  border-radius:22px;
+  box-shadow:0 12px 38px rgba(35,83,40,.08);
+}
+.welcome-card .auth-subtitle{margin-bottom:19px}
+.welcome-card form{gap:5px}
+.welcome-card form>label{margin-top:9px}
+.welcome-card input{min-height:46px}
+.welcome-card .primary-button{min-height:48px;margin-top:15px}
+.welcome-divider{margin:21px 0 14px}
+.welcome-register-link{min-height:58px}
+.welcome-panel .auth-disclaimer{max-width:430px}
+@media(max-width:1000px){
+ .auth-layout.welcome-layout{grid-template-columns:minmax(0,1fr) minmax(410px,.95fr)}
+ .welcome-showcase{padding:30px 28px}
+}
+@media(max-width:900px){
+ .auth-layout.welcome-layout{grid-template-columns:1fr}
+ .welcome-showcase{display:none}
+ .welcome-panel{max-width:520px;padding:24px 16px}
+ .welcome-card{max-width:480px;margin:0 auto}
+}
+@media(max-width:420px){
+ .welcome-panel{padding:22px 13px}
+ .welcome-card{padding:26px 20px}
+ .welcome-panel .auth-logo .logo-small{width:210px}
+}
