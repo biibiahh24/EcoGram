@@ -54,3 +54,7 @@ a{color:inherit}.shell{max-width:1330px;grid-template-columns:204px minmax(0,680
  .profile-cover{height:145px}
 }
 @media(max-width:400px){.main-column{padding-left:9px;padding-right:9px}.story{min-width:55px}.ranking-podium{gap:4px}.podium-avatar{height:45px;width:45px}}
+
+/* Preserve o comportamento dos filtros quando os elementos estão ocultos. */
+.ranking-podium[hidden],.activity-list[hidden],.challenge[hidden],.notice-tabs[hidden]{display:none!important}
+.auth-page .logo-small{max-width:100%}
