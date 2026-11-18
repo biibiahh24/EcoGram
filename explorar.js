@@ -1,33 +1,35 @@
-// Exploração local de demonstração: preserva galeria e categorias da tela original.
-const items = [
-  {name:"Reciclagem e reutilização",category:"postagens",tag:"sustentabilidade",image:"imagem3.png"},
-  {name:"Natureza e consciência ambiental",category:"postagens",tag:"sustentabilidade",image:"imagem4.png"},
-  {name:"Ideias verdes da comunidade",category:"perfis",tag:"sustentabilidade",image:"imagem2.jpg"},
-  {name:"Hábitos para um futuro sustentável",category:"postagens",tag:"sustentabilidade",image:"imagemsustentavel.jpg"}
+// Busca e filtros da galeria de conteúdo do EcoGram.
+const items=[
+ {name:"Reciclagem e reutilização",category:"reciclagem",image:"imagem3.png"},
+ {name:"Natureza e consciência ambiental",category:"natureza",image:"imagem4.png"},
+ {name:"Pessoas da comunidade verde",category:"comunidade",image:"imagem2.jpg"},
+ {name:"Hábitos para um futuro sustentável",category:"natureza",image:"imagemsustentavel.jpg"}
 ];
 let activeFilter="tudo";
-function pesquisarExplorar(){renderExplore();}
+function pesquisarExplorar(){renderExplore()}
 function filtrarExplorar(category){
  activeFilter=category;
- document.querySelectorAll(".filter").forEach(button=>{
-  const selected=button.getAttribute("onclick")?.includes("'"+category+"'");
-  button.classList.toggle("ativo",selected);
-  button.setAttribute("aria-pressed",String(selected));
- });
+ for(const button of document.querySelectorAll('.filter')){
+  const match=button.getAttribute('onclick')?.includes("'"+category+"'");
+  button.classList.toggle('ativo',match);
+  button.setAttribute('aria-pressed',String(match));
+ }
  renderExplore();
 }
 function renderExplore(){
- const container=document.getElementById("explorarContainer");
- if(!container)return;
- const term=(document.getElementById("barraPesquisa")?.value||"").toLocaleLowerCase("pt-BR").trim();
- const filtered=items.filter(item=>(activeFilter==="tudo"||item.category===activeFilter||item.tag===activeFilter)&&item.name.toLocaleLowerCase("pt-BR").includes(term));
+ const container=document.getElementById('explorarContainer');if(!container)return;
+ const term=(document.getElementById('barraPesquisa')?.value||'').trim().toLocaleLowerCase('pt-BR');
+ const filtered=items.filter(item=>{
+  const categoryMatch=activeFilter==='tudo'||activeFilter==='sustentabilidade'||item.category===activeFilter;
+  return categoryMatch&&(item.name.toLocaleLowerCase('pt-BR').includes(term)||item.category.includes(term));
+ });
  container.replaceChildren();
- if(!filtered.length){const p=document.createElement("p");p.textContent="Nenhum resultado para essa busca.";p.className="explore-empty";container.append(p);return;}
+ if(!filtered.length){const empty=document.createElement('p');empty.className='explore-empty';empty.textContent='Nenhuma publicação encontrada. Experimente outra busca.';container.append(empty);return;}
  for(const item of filtered){
-  const card=document.createElement("article");card.className="explore-card";
-  const image=document.createElement("img");image.src=item.image;image.alt=item.name;image.loading="lazy";
-  const title=document.createElement("p");title.textContent=item.name;
-  card.append(image,title);container.append(card);
+  const card=document.createElement('article');card.className='explore-card';
+  const image=document.createElement('img');image.src=item.image;image.alt=item.name;image.loading='lazy';
+  const caption=document.createElement('p');caption.textContent=item.name;
+  card.append(image,caption);container.append(card);
  }
 }
-document.addEventListener("DOMContentLoaded",renderExplore);
+document.addEventListener('DOMContentLoaded',renderExplore);
