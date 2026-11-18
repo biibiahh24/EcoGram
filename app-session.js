@@ -12,14 +12,29 @@ if (!currentProfile || typeof currentProfile.nickname!=='string') {
    if(name)name.textContent=currentProfile.name;
    document.querySelectorAll('.mini-user strong').forEach(el=>el.textContent=currentProfile.name||'Visitante');
    document.querySelectorAll('.mini-user span').forEach(el=>el.textContent='@'+currentProfile.nickname);
-   document.getElementById('logout')?.addEventListener('click',()=>{
-     sessionStorage.removeItem(ECOGRAM_SESSION);
-     sessionStorage.removeItem('ecogram-session-posts');
-     window.location.assign('login.html');
-   });
+   for(const button of document.querySelectorAll('#logout,#settings-logout')){
+     button.addEventListener('click',event=>{
+       event.preventDefault();
+       ecogramLogout();
+     });
+   }
    enhanceInterface();
  });
 }
+// Encerramento consistente em todas as telas, sem alterar outras abas do navegador.
+function ecogramLogout(){
+ sessionStorage.removeItem(ECOGRAM_SESSION);
+ sessionStorage.removeItem('ecogram-session-posts');
+ sessionStorage.removeItem('ecogram-challenge-selections');
+ window.location.replace('login.html');
+}
+// Garante que o botão Voltar não exiba uma sessão antiga restaurada pelo navegador.
+window.addEventListener('pageshow',event=>{
+ if(!event.persisted)return;
+ let profile=null;
+ try{profile=JSON.parse(sessionStorage.getItem(ECOGRAM_SESSION)||'null')}catch{}
+ if(!profile || typeof profile.nickname!=='string')window.location.replace('login.html');
+});
 function enhanceInterface(){
  // Ícones consistentes em vez de símbolos de texto diferentes entre desktop e celular.
  const icons={
@@ -94,6 +109,5 @@ document.addEventListener('DOMContentLoaded',()=>{
  }));
  const count=document.getElementById('profile-post-count');
  if(count){try{const posts=JSON.parse(sessionStorage.getItem('ecogram-session-posts')||'[]');count.textContent=String(Array.isArray(posts)?posts.length:0)}catch{count.textContent='0'}}
- const logout=document.getElementById('settings-logout');
- logout?.addEventListener('click',()=>{sessionStorage.removeItem('ecogram-demo-profile');sessionStorage.removeItem('ecogram-session-posts');sessionStorage.removeItem('ecogram-challenge-selections')});
+ // A saída é controlada pela mesma função no Perfil e em Configurações.
 });
