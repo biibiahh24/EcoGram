@@ -13,3 +13,31 @@
 @media(max-width:420px){.auth-panel{padding:24px 13px}.auth-card{padding:26px 22px}.auth-logo{text-align:center}}
 
 body.auth-page:has(> .auth-panel){display:grid;place-items:center}
+
+/* Acabamento das telas de entrada e cadastro */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+.auth-page{font-family:'DM Sans',Arial,sans-serif}
+.auth-card h1,.showcase-content h2,.showcase-brand{font-family:Manrope,Arial,sans-serif}
+.auth-card{position:relative;overflow:hidden}
+.auth-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#198742,#8fdaa3)}
+.auth-kicker{letter-spacing:.13em;color:#277d43}
+.auth-card h1{letter-spacing:-.055em;line-height:1.13}
+.auth-card label{letter-spacing:.01em;margin-top:11px}
+.auth-card input{transition:border-color .15s,box-shadow .15s;background:#fcfefc}
+.auth-card input:hover{border-color:#92bca0}
+.auth-card .primary-button{background:#138a45;box-shadow:0 5px 13px rgba(19,138,69,.12);transition:transform .17s,background .17s,box-shadow .17s}
+.auth-card .primary-button:hover{background:#0e7138;box-shadow:0 7px 18px rgba(19,138,69,.16);transform:translateY(-1px)}
+.auth-card .secondary-button{transition:background .17s,border-color .17s}
+.auth-card .secondary-button:hover{border-color:#82b693}
+.demo-access{border-radius:12px}
+.showcase-photo img{object-position:center 50%}
+.showcase-photo{box-shadow:0 20px 38px #0004}
+.showcase-content h2{max-width:600px}
+.auth-logo img{max-height:100px}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:77px}
+.password-toggle{position:absolute;right:5px;top:4px;height:38px;padding:0 9px;border:0;border-radius:7px;background:transparent;color:#247841;font-weight:700;font-size:12px;cursor:pointer}
+.password-toggle:hover{background:#e7f5eb}
+@media(max-width:900px){.auth-panel{max-width:490px}.auth-card{box-shadow:0 15px 45px #2e643020}}
+@media(max-width:420px){.auth-card h1{font-size:27px}.auth-card{border-radius:16px}.auth-panel{min-height:100svh}}
+@media(prefers-reduced-motion:reduce){.auth-card .primary-button:hover{transform:none}}
