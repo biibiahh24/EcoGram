@@ -1,33 +1,74 @@
-const POST_KEY='ecogram-session-posts';
-function getPosts(){try{return JSON.parse(sessionStorage.getItem(POST_KEY)||'[]')}catch{return []}}
-function renderLocalPosts(){
- const target=document.getElementById('local-posts');if(!target)return;
- const posts=getPosts();target.replaceChildren();
+import {supabase,ensureProfile,friendlyError} from './ecogram-client.js';
+
+function node(tag,cls,text){
+ const item=document.createElement(tag);
+ if(cls)item.className=cls;
+ if(text!==undefined)item.textContent=text;
+ return item;
+}
+function showFeedStatus(target,message){
+ const item=node('p','surface eco-empty',message);
+ target.replaceChildren(item);
+}
+async function renderFeed(){
+ const target=document.getElementById('remote-posts');
+ if(!target)return;
+ showFeedStatus(target,'Carregando publicações...');
+ const {data:posts,error}=await supabase.from('ecogram_posts')
+  .select('id,author_id,body,created_at').order('created_at',{ascending:false}).limit(40);
+ if(error){showFeedStatus(target,'Não foi possível carregar as publicações: '+friendlyError(error));return;}
+ if(!posts?.length){showFeedStatus(target,'Nossa comunidade está começando! Seja a primeira pessoa a compartilhar uma atitude sustentável. 🌱');return;}
+ const authors=[...new Set(posts.map(post=>post.author_id))];
+ const {data:profiles,error:profilesError}=await supabase.from('ecogram_profiles')
+  .select('id,display_name,username').in('id',authors);
+ if(profilesError){showFeedStatus(target,'Não foi possível carregar os autores: '+friendlyError(profilesError));return;}
+ const names=new Map((profiles||[]).map(person=>[person.id,person]));
+ target.replaceChildren();
  for(const post of posts){
-  const article=document.createElement('article');article.className='surface post';
-  const top=document.createElement('div');top.className='post-top';
-  const avatar=document.createElement('img');avatar.src='perfil.png';avatar.alt='';avatar.className='avatar';
-  const info=document.createElement('div');info.className='user-info';
-  const name=document.createElement('strong');name.textContent=post.author;
-  const sub=document.createElement('small');sub.textContent='Publicação local · nesta sessão';
-  info.append(name,sub);top.append(avatar,info);article.append(top);
-  if(post.image){const image=document.createElement('img');image.className='post-image';image.src=post.image;image.alt='Imagem enviada nesta sessão';article.append(image);}
-  const details=document.createElement('div');details.className='post-details';
-  const caption=document.createElement('p');caption.className='caption';caption.textContent=post.caption;details.append(caption);
-  const meta=document.createElement('p');meta.className='post-meta';meta.textContent='Visível somente neste navegador';details.append(meta);article.append(details);target.append(article);
+  const author=names.get(post.author_id);
+  const article=node('article','surface post');
+  const top=node('div','post-top');
+  const avatar=node('img','avatar');avatar.src='perfil.png';avatar.alt='';
+  const user=node('div','user-info');
+  user.append(node('strong','',author?.display_name||'Pessoa EcoGram'),node('small','',('@'+(author?.username||'ecogram'))+' · Comunidade'));
+  top.append(avatar,user);
+  const details=node('div','post-details');
+  const caption=node('p','caption',post.body);
+  const actions=node('div','post-actions');
+  const share=node('button','', '↗');share.type='button';share.setAttribute('aria-label','Compartilhar publicação');
+  share.addEventListener('click',async()=>{
+   const data={title:'EcoGram',text:post.body,url:window.location.origin+'/feed.html'};
+   try{
+    if(navigator.share)await navigator.share(data);
+    else if(navigator.clipboard){await navigator.clipboard.writeText(data.text+'\n'+data.url);window.ecogramToast?.('Publicação copiada para compartilhar');}
+   }catch(error){if(error.name!=='AbortError')window.ecogramToast?.('Não foi possível compartilhar');}
+  });
+  actions.append(share);
+  const date=new Date(post.created_at);
+  const meta=node('p','post-meta',Number.isNaN(date.getTime())?'EcoGram · Comunidade':date.toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'}));
+  details.append(caption,actions,meta);article.append(top,details);target.append(article);
  }
 }
+async function submitPost(form){
+ const status=document.getElementById('post-status');
+ const caption=form.querySelector('#post-caption').value.trim();
+ if(!caption||caption.length>1500){status.textContent='Escreva uma legenda de até 1.500 caracteres.';return;}
+ const file=form.querySelector('#post-image')?.files?.[0];
+ if(file){status.textContent='O envio de imagens será ativado na próxima etapa. Publique somente o texto por enquanto.';return;}
+ const button=form.querySelector('button[type="submit"]');button.disabled=true;
+ status.textContent='Publicando...';
+ try{
+  const {data,error}=await supabase.auth.getUser();
+  if(error||!data?.user){window.location.replace('login.html');return;}
+  await ensureProfile(data.user);
+  const result=await supabase.from('ecogram_posts').insert({author_id:data.user.id,body:caption});
+  if(result.error)throw result.error;
+  window.location.assign('feed.html');
+ }catch(error){status.textContent='Não foi possível publicar: '+friendlyError(error);}
+ finally{button.disabled=false;}
+}
 document.addEventListener('DOMContentLoaded',()=>{
- renderLocalPosts();
- const form=document.getElementById('post-form');if(!form)return;
- form.addEventListener('submit',async event=>{
-  event.preventDefault();const caption=form.querySelector('#post-caption').value.trim(),file=form.querySelector('#post-image').files[0],status=document.getElementById('post-status');
-  if(!caption){status.textContent='Escreva uma legenda para continuar.';return;}
-  if(file && (file.size>1024*1024 || !['image/png','image/jpeg','image/webp'].includes(file.type))){status.textContent='Escolha uma imagem PNG, JPG ou WebP de até 1 MB.';return;}
-  let image=null;
-  if(file){image=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file);});}
-  let profile={name:'Visitante'};try{profile=JSON.parse(sessionStorage.getItem('ecogram-demo-profile')||'{}')}catch{}
-  const posts=getPosts();posts.unshift({caption,image,author:profile.name||'Visitante'});try{sessionStorage.setItem(POST_KEY,JSON.stringify(posts.slice(0,5)))}catch{status.textContent='Espaço local insuficiente: tente publicar sem imagem.';return;}
-  location.assign('feed.html');
- });
+ renderFeed();
+ const form=document.getElementById('post-form');
+ form?.addEventListener('submit',event=>{event.preventDefault();if(form.reportValidity())submitPost(form)});
 });
