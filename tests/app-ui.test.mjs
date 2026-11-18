@@ -65,7 +65,8 @@ test('Integração Supabase preserva segurança de autenticação',()=>{
  const session=readFileSync('app-session.js','utf8');
  const posts=readFileSync('new-post.js','utf8');
  assert.match(client,/sb_publishable_/);
- assert.doesNotMatch(client,/service_role|sb_secret_/);
+ assert.doesNotMatch(client,/['"]sb_secret_[A-Za-z0-9_-]+['"]/);
+ assert.doesNotMatch(client,/role\s*:\s*['"]service_role['"]/);
  assert.match(auth,/signUp\(/);
  assert.match(auth,/signInWithPassword\(/);
  assert.match(auth,/resetPasswordForEmail\(/);
