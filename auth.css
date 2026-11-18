@@ -66,3 +66,8 @@ body.auth-page:has(> .auth-panel){display:grid;place-items:center}
 body.auth-page:has(> .auth-panel){background:#f4faf1;min-height:100svh}
 @media(max-width:900px){.auth-page{background:#f5faf1}.auth-card{background:white}.auth-logo .logo-small{width:230px}}
 @media(max-width:420px){.auth-logo .logo-small{width:210px}.auth-card{box-shadow:0 8px 30px #377c3913}}
+
+/* Mensagens de erro e confirmação de autenticação online */
+.auth-feedback{padding:12px 13px;border-radius:9px;background:#eef8ec;border:1px solid #c7e4c0;color:#24652f;font-size:13px;line-height:1.5}
+.auth-feedback[hidden],#recover-form[hidden],#reset-form[hidden]{display:none!important}
+.auth-card button[disabled]{opacity:.65;cursor:progress}
