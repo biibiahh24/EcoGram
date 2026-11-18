@@ -31,7 +31,7 @@ const ECO_STORIES=[
  {name:'Maria',src:'imagem3.png',note:'Pequenas atitudes, grandes mudanças. ♻️'},
  {name:'Lucas',src:'imagem4.png',note:'Um novo olhar para a natureza. 🌳'},
  {name:'Ana',src:'imagem2.jpg',note:'Ideias que inspiram um mundo mais verde. 🌱'},
- {name:'Natureza',src:'imagensustentavel.jpg',note:'Vamos transformar o futuro juntos. 💚'}
+ {name:'Natureza',src:'imagemsustentavel.jpg',note:'Vamos transformar o futuro juntos. 💚'}
 ];
 let activeStoryViewer=null;
 function openStory(src,name){
