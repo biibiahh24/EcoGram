@@ -66,3 +66,34 @@ function enhanceInterface(){
   window.addEventListener('pagehide',()=>{if(url)URL.revokeObjectURL(url);},{once:true});
  }
 }
+
+
+/* Controles compartilhados do wireframe EcoGram */
+document.addEventListener('DOMContentLoaded',()=>{
+ const search=document.getElementById('message-search');
+ search?.addEventListener('input',()=>{
+  const q=search.value.trim().toLocaleLowerCase('pt-BR');
+  document.querySelectorAll('.message-list .activity').forEach(row=>row.hidden=!row.textContent.toLocaleLowerCase('pt-BR').includes(q));
+ });
+ const notices=[...document.querySelectorAll('[data-notice-type]')];
+ document.querySelectorAll('[data-notice-filter]').forEach(button=>button.addEventListener('click',()=>{
+  const filter=button.dataset.noticeFilter;
+  document.querySelectorAll('[data-notice-filter]').forEach(btn=>{const active=button===btn;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});
+  notices.forEach(row=>row.hidden=filter!=='all'&&row.dataset.noticeType!==filter);
+ }));
+ const podium=document.querySelector('.ranking-podium');
+ const rankList=podium?.nextElementSibling;
+ document.querySelectorAll('[data-rank-filter]').forEach(button=>button.addEventListener('click',()=>{
+  const type=button.dataset.rankFilter;
+  document.querySelectorAll('[data-rank-filter]').forEach(b=>{const active=button===b;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
+  if(podium)podium.hidden=type!=='geral';
+  if(rankList?.classList.contains('activity-list'))rankList.hidden=type!=='geral';
+  let empty=document.getElementById('rank-empty');
+  if(!empty&&podium){empty=document.createElement('p');empty.id='rank-empty';empty.className='form-hint';podium.after(empty)}
+  if(empty){empty.hidden=type==='geral';empty.textContent=type==='amigos'?'A classificação entre amigos ficará disponível com perfis conectados.':'A classificação por desafios ficará disponível com o acompanhamento de progresso.';}
+ }));
+ const count=document.getElementById('profile-post-count');
+ if(count){try{const posts=JSON.parse(sessionStorage.getItem('ecogram-session-posts')||'[]');count.textContent=String(Array.isArray(posts)?posts.length:0)}catch{count.textContent='0'}}
+ const logout=document.getElementById('settings-logout');
+ logout?.addEventListener('click',()=>{sessionStorage.removeItem('ecogram-demo-profile');sessionStorage.removeItem('ecogram-session-posts');sessionStorage.removeItem('ecogram-challenge-selections')});
+});
