@@ -58,3 +58,10 @@ a{color:inherit}.shell{max-width:1330px;grid-template-columns:204px minmax(0,680
 /* Preserve o comportamento dos filtros quando os elementos estão ocultos. */
 .ranking-podium[hidden],.activity-list[hidden],.challenge[hidden],.notice-tabs[hidden]{display:none!important}
 .auth-page .logo-small{max-width:100%}
+
+/* Acesso protegido: não mostrar dados da página até verificar a sessão online. */
+.auth-checking .shell,.auth-checking .bottom-nav,.auth-checking .mobile-header{visibility:hidden}
+.eco-empty{padding:26px 20px;color:#6b836f;line-height:1.7;text-align:center}
+.post-details .post-actions{margin:15px 0 0;padding-top:7px;border-top:1px solid #eef1ed}
+.post-details .post-actions button{font-size:22px}
+a[aria-disabled="true"],button[aria-disabled="true"]{opacity:.5;pointer-events:none}
