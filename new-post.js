@@ -69,6 +69,23 @@ async function submitPost(form){
 }
 document.addEventListener('DOMContentLoaded',()=>{
  renderFeed();
+ renderCommunityProfiles();
  const form=document.getElementById('post-form');
  form?.addEventListener('submit',event=>{event.preventDefault();if(form.reportValidity())submitPost(form)});
 });
+
+
+async function renderCommunityProfiles(){
+ const target=document.getElementById('community-profiles');
+ if(!target)return;
+ const {data,error}=await supabase.from('ecogram_profiles').select('id,display_name,username').order('created_at',{ascending:false}).limit(5);
+ target.replaceChildren();
+ if(error){target.append(node('p','form-hint','Não foi possível buscar perfis agora.'));return;}
+ if(!data?.length){target.append(node('p','form-hint','O EcoGram está começando! Convide alguém para entrar na comunidade.'));return;}
+ for(const person of data){
+  const item=node('div','suggested-person');
+  const avatar=node('img');avatar.src='perfil.png';avatar.alt='';
+  const info=node('div');info.append(node('strong','',person.display_name),node('span','','@'+person.username));
+  item.append(avatar,info);target.append(item);
+ }
+}
