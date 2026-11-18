@@ -31,7 +31,7 @@ test('Fluxo de entrada está conectado ao aplicativo',()=>{
 });
 test('Scripts essenciais ligados à interface',()=>{
  for(const p of ['feed.html','explorar.html','desafios.html','postar.html']){
-  const s=readFileSync(p,'utf8');assert.match(s,/<script\s+src=["'][^"']+["']/i,p);
+  const s=readFileSync(p,'utf8');assert.match(s,/<script\b[^>]*\bsrc=["'][^"']+["']/i,p);
  }
 });
 
@@ -57,4 +57,28 @@ test('Nova identidade está integrada às abas',()=>{
   assert.match(s,/ecogram-logo\.svg/,p);
   assert.match(s,/ecogram-mark\.svg/,p);
  }
+});
+
+test('Integração Supabase preserva segurança de autenticação',()=>{
+ const client=readFileSync('ecogram-client.js','utf8');
+ const auth=readFileSync('auth.js','utf8');
+ const session=readFileSync('app-session.js','utf8');
+ const posts=readFileSync('new-post.js','utf8');
+ assert.match(client,/sb_publishable_/);
+ assert.doesNotMatch(client,/service_role|sb_secret_/);
+ assert.match(auth,/signUp\(/);
+ assert.match(auth,/signInWithPassword\(/);
+ assert.match(auth,/resetPasswordForEmail\(/);
+ assert.match(auth,/updateUser\(/);
+ assert.match(session,/auth\.getUser\(/);
+ assert.match(session,/auth\.signOut\(/);
+ assert.match(posts,/from\('ecogram_posts'\)/);
+ assert.match(posts,/\.insert\(\{author_id:data\.user\.id,body:caption\}\)/);
+ assert.doesNotMatch(posts,/sessionStorage\.setItem\(POST_KEY/);
+});
+test('Entrada e páginas privadas usam módulos autenticados',()=>{
+ for(const p of ['login.html','cadastro.html','recuperar.html'])
+  assert.match(readFileSync(p,'utf8'),/type="module" src="auth\.js"/,p);
+ for(const p of ['feed.html','explorar.html','desafios.html','perfil.html','postar.html','chat.html','chat_abrir.html','notificacoes.html','ranking.html','configuracao.html'])
+  assert.match(readFileSync(p,'utf8'),/type="module" src="app-session\.js"/,p);
 });
