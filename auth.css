@@ -41,3 +41,28 @@ body.auth-page:has(> .auth-panel){display:grid;place-items:center}
 @media(max-width:900px){.auth-panel{max-width:490px}.auth-card{box-shadow:0 15px 45px #2e643020}}
 @media(max-width:420px){.auth-card h1{font-size:27px}.auth-card{border-radius:16px}.auth-panel{min-height:100svh}}
 @media(prefers-reduced-motion:reduce){.auth-card .primary-button:hover{transform:none}}
+
+/* Identidade visual EcoGram — aprovada no wireframe */
+.auth-page{background:#f4f9f2;color:#1e3c27}
+.auth-layout{background:#f8fbf6}
+.auth-showcase{background:radial-gradient(ellipse at 85% 15%,#e1f4d3,transparent 48%),linear-gradient(130deg,#eef8e8,#e0f2d8);color:#205032}
+.showcase-brand{display:flex;gap:12px;align-items:center;color:#276836;font-family:Nunito,Arial,sans-serif;font-size:28px}
+.showcase-brand img{width:44px;height:44px}
+.showcase-content>span{color:#338d2b}
+.showcase-content h2{color:#225532;font-family:Nunito,Arial,sans-serif;letter-spacing:-.045em}
+.showcase-content p{color:#5c8263}
+.showcase-photo{border:5px solid #fff;box-shadow:0 12px 36px #478a4930}
+.auth-panel{max-width:475px}
+.auth-card{border-color:#dfeada;box-shadow:0 12px 40px #2f6d3520}
+.auth-card:before{background:linear-gradient(90deg,#2f8c31,#98d842)}
+.auth-logo{text-align:center;margin-bottom:19px}
+.auth-logo .logo-small{display:block;width:270px;max-height:none;height:auto;margin:0 auto;object-fit:contain}
+.auth-card h1{color:#204b2e;font-family:Nunito,Arial,sans-serif}
+.auth-kicker{color:#328d2d}
+.auth-card .primary-button{background:#3a982e}
+.auth-card .primary-button:hover{background:#297f25}
+.auth-card input:focus{border-color:#62af51;box-shadow:0 0 0 3px #b7dfaf55}
+.auth-disclaimer{color:#748d78}
+body.auth-page:has(> .auth-panel){background:#f4faf1;min-height:100svh}
+@media(max-width:900px){.auth-page{background:#f5faf1}.auth-card{background:white}.auth-logo .logo-small{width:230px}}
+@media(max-width:420px){.auth-logo .logo-small{width:210px}.auth-card{box-shadow:0 8px 30px #377c3913}}
