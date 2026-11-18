@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Perfil - Sustagram</title>
-  <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - EcoGram</title>
+  <link rel="stylesheet" href="index.css"><script src="app-session.js" defer></script>
 </head>
 <body>
 
@@ -23,13 +23,14 @@
   <main>
     <section class="post">
       <div class="post">
-        <img src="imagem1.jpg" alt="Foto de perfil">
+        <img src="perfil.png" alt="Foto de perfil">
         <div>
-          <strong>@usuario</strong><br>
-          <small>150 seguidores • 120 seguindo</small>
+          <strong id="profile-nickname">@visitante</strong><br><span id="profile-name">Visitante</span><br>
+          <small>Perfil local de demonstração</small>
         </div>
       </div>
-      <div class="caption">🌍 Bio do usuário aqui 💚</div>
+      <div class="caption">🌍 Compartilhando hábitos e ideias sustentáveis 💚</div>
+    <button type="button" id="logout" style="margin-top:16px;max-width:220px">Sair da conta</button>
     </section>
   </main>
 
