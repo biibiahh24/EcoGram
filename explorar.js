@@ -9,7 +9,7 @@ let activeFilter="tudo";
 function pesquisarExplorar(){renderExplore();}
 function filtrarExplorar(category){
  activeFilter=category;
- document.querySelectorAll(".filtro").forEach(button=>{
+ document.querySelectorAll(".filter").forEach(button=>{
   const selected=button.getAttribute("onclick")?.includes("'"+category+"'");
   button.classList.toggle("ativo",selected);
   button.setAttribute("aria-pressed",String(selected));
