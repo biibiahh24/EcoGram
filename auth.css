@@ -11,3 +11,5 @@
 .auth-disclaimer{color:#53745b}.auth-links a{color:#126e37}
 @media(max-width:900px){.auth-layout{grid-template-columns:minmax(0,1fr)}.auth-showcase{display:none}.auth-panel{max-width:480px;min-height:100svh;display:flex;flex-direction:column;justify-content:center}.auth-page{background:linear-gradient(160deg,#d6f4d9,#f6faf6)}.auth-card{background:#fff}}
 @media(max-width:420px){.auth-panel{padding:24px 13px}.auth-card{padding:26px 22px}.auth-logo{text-align:center}}
+
+body.auth-page:has(> .auth-panel){display:grid;place-items:center}
