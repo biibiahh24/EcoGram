@@ -83,3 +83,36 @@ test('Entrada e páginas privadas usam módulos autenticados',()=>{
  for(const p of ['feed.html','explorar.html','desafios.html','perfil.html','postar.html','chat.html','chat_abrir.html','notificacoes.html','ranking.html','configuracao.html'])
   assert.match(readFileSync(p,'utf8'),/type="module" src="app-session\.js"/,p);
 });
+
+
+test('Stories ilustrativos têm reprodução automática e acessível',()=>{
+ const story=readFileSync('js_script.js','utf8');
+ const feed=readFileSync('feed.html','utf8');
+ const page=readFileSync('stories.html','utf8');
+ assert.match(story,/startStories\(/);
+ assert.match(story,/setTimeout\(/);
+ assert.match(story,/eco-story-fill/);
+ assert.match(story,/function togglePause\(/);
+ assert.match(story,/ArrowRight/);
+ assert.match(story,/ArrowLeft/);
+ assert.match(story,/Escape/);
+ assert.match(story,/touchend/);
+ assert.match(feed,/startStories\(0\)/);
+ assert.match(page,/js_script\.js/);
+ assert.match(page,/Story|Stories/);
+});
+test('Cadastro EcoGram exige informações completas e confirmação',()=>{
+ const page=readFileSync('cadastro.html','utf8');
+ const auth=readFileSync('auth.js','utf8');
+ const login=readFileSync('login.html','utf8');
+ for(const id of ['fullname','nickname','email','password','confirm-password','public-info-consent']){
+  assert.match(page,new RegExp('id=["\\\']'+id+'["\\\']'),id);
+ }
+ assert.match(auth,/signUp\(/);
+ assert.match(auth,/password!==confirmation/);
+ assert.match(auth,/public-info-consent/);
+ assert.match(auth,/ilike\('username',username\)/);
+ assert.match(auth,/password-strength-label/);
+ assert.doesNotMatch(login,/demo123|Entrar como visitante/);
+ assert.match(login,/href="cadastro\.html"/);
+});
