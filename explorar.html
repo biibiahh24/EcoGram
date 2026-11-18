@@ -4,40 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explorar - Susty</title>
-  <link rel="stylesheet" href="config.css">
-  <script src="/Scripts/js_script.js" defer></script>
+  <link rel="stylesheet" href="explore.css">
+  <script src="explorar.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Pular para conteúdo</a>
 
   <header>
     <h1>Explorar 🔍</h1>
   </header>
 
-  <main class="explorar-container">
+  <main id="conteudo" class="explorar-container">
 
     <section class="pesquisa-box">
-      <input type="text" id="barraPesquisa" placeholder="Pesquisar perfis, postagens, áudios..." oninput="pesquisarExplorar()">
+      <input type="text" id="barraPesquisa" placeholder="Pesquisar perfis e postagens..." oninput="pesquisarExplorar()">
     </section>
 
     <section class="filtros-explorar">
       <button class="filtro ativo" onclick="filtrarExplorar('tudo')">Tudo</button>
       <button class="filtro" onclick="filtrarExplorar('perfis')">Perfis</button>
       <button class="filtro" onclick="filtrarExplorar('postagens')">Postagens</button>
-      <button class="filtro" onclick="filtrarExplorar('audios')">Áudios</button>
+      <button class="filtro" onclick="filtrarExplorar('sustentabilidade')">Sustentabilidade</button>
     </section>
 
-    <section id="explorarContainer" class="resultados-explorar">
+    <section id="explorarContainer" class="resultados-explorar gallery" aria-live="polite">
       <!-- O JS insere os resultados aqui -->
     </section>
 
   </main>
 
   <footer>
-    <a href="/Pages/feed.html">🏠</a>
-    <a href="/Pages/explorar.html" class="active">🔍</a>
-    <a href="/Pages/postar.html">➕</a>
-    <a href="/Pages/notificacoes.html">❤️</a>
-    <a href="/Pages/perfil.html">👤</a>
+    <a href="feed.html">🏠</a>
+    <a href="explorar.html" class="active">🔍</a>
+    <a href="postar.html">➕</a>
+    <a href="notificacoes.html">❤️</a>
+    <a href="perfil.html">👤</a>
   </footer>
 
 </body>
