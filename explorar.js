@@ -3,7 +3,7 @@ const items = [
   {name:"Reciclagem e reutilização",category:"postagens",tag:"sustentabilidade",image:"imagem3.png"},
   {name:"Natureza e consciência ambiental",category:"postagens",tag:"sustentabilidade",image:"imagem4.png"},
   {name:"Ideias verdes da comunidade",category:"perfis",tag:"sustentabilidade",image:"imagem2.jpg"},
-  {name:"Hábitos para um futuro sustentável",category:"postagens",tag:"sustentabilidade",image:"imagensustentavel.jpg"}
+  {name:"Hábitos para um futuro sustentável",category:"postagens",tag:"sustentabilidade",image:"imagemsustentavel.jpg"}
 ];
 let activeFilter="tudo";
 function pesquisarExplorar(){renderExplore();}
