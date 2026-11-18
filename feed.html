@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feed - Sustagram</title>
   <link rel="stylesheet" href="feed.css">
-  <script src="js/script.js" defer></script>
+  <script src="js_script.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- Cabeçalho -->
   <header>
+    <!-- Preservado layout original do app -->
     <h1>Sustagram 🌱</h1>
     <nav>
       <a href="feed.html" class="active">Feed</a>
@@ -23,22 +25,22 @@
 
   <!-- Stories -->
   <section class="stories">
-    <div class="story" onclick="openStory('img1.jpg','Maria')">
+    <div class="story" onclick="openStory('imagem3.png','Maria')">
       <img src="perfil.png" alt="Maria">
       <p>Maria</p>
     </div>
-    <div class="story" onclick="openStory('img2.jpg','Lucas')">
+    <div class="story" onclick="openStory('imagem4.png','Lucas')">
       <img src="perfil.png" alt="Lucas">
       <p>Lucas</p>
     </div>
-    <div class="story" onclick="openStory('img3.jpg','Ana')">
+    <div class="story" onclick="openStory('imagem2.jpg','Ana')">
       <img src="perfil.png" alt="Ana">
       <p>Ana</p>
     </div>
   </section>
 
   <!-- Feed -->
-  <main>
+  <main id="conteudo">
     <!-- Post 1 -->
     <article class="post">
       <div class="post-header">
@@ -46,15 +48,15 @@
         <strong>Maria Verde</strong>
       </div>
       <img src="imagem3.png" alt="Postagem de Maria" class="post-img">
-      <div class="perfil.png">
-        <button onclick="like(this)">❤️</button>
-        <button onclick="toggleComment('c1')">💬</button>
-        <button onclick="alert('Compartilhado!')">🔄</button>
-        <span id="likes-count">0 curtidas</span>
+      <div class="post-actions">
+        <button type="button" aria-label="Curtir publicação" aria-pressed="false" onclick="like(this)">❤️</button>
+        <button type="button" aria-label="Mostrar comentários" onclick="toggleComment('c1')">💬</button>
+        <button type="button" aria-label="Compartilhar publicação" onclick="sharePost(this)">🔄</button>
+        <span class="likes-count" aria-live="polite">0 curtidas</span>
       </div>
       <div id="c1" class="comments" style="display:none;">
         <input type="text" placeholder="Adicione um comentário...">
-        <button onclick="sendComment('c1')">Enviar</button>
+        <button type="button" onclick="sendComment('c1')">Enviar</button>
       </div>
     </article>
 
@@ -66,14 +68,14 @@
       </div>
       <img src="imagem4.png" alt="Postagem de Lucas" class="post-img">
       <div class="post-actions">
-        <button onclick="like(this)">❤️</button>
-        <button onclick="toggleComment('c2')">💬</button>
-        <button onclick="alert('Compartilhado!')">🔄</button>
-        <span id="likes-count">0 curtidas</span>
+        <button type="button" aria-label="Curtir publicação" aria-pressed="false" onclick="like(this)">❤️</button>
+        <button type="button" aria-label="Mostrar comentários" onclick="toggleComment('c2')">💬</button>
+        <button type="button" aria-label="Compartilhar publicação" onclick="sharePost(this)">🔄</button>
+        <span class="likes-count" aria-live="polite">0 curtidas</span>
       </div>
       <div id="c2" class="comments" style="display:none;">
         <input type="text" placeholder="Adicione um comentário...">
-        <button onclick="sendComment('c2')">Enviar</button>
+        <button type="button" onclick="sendComment('c2')">Enviar</button>
       </div>
     </article>
   </main>
