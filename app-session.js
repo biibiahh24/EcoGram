@@ -1,40 +1,57 @@
-// Sessão local do projeto acadêmico. Não substitui autenticação em servidor.
-const ECOGRAM_SESSION='ecogram-demo-profile';
+import {supabase,ensureProfile,friendlyError} from './ecogram-client.js';
+document.documentElement.classList.add('auth-checking');
 let currentProfile=null;
-try {currentProfile=JSON.parse(sessionStorage.getItem(ECOGRAM_SESSION)||'null');}catch {sessionStorage.removeItem(ECOGRAM_SESSION);}
-if (!currentProfile || typeof currentProfile.nickname!=='string') {
- window.location.replace('login.html');
-} else {
- document.addEventListener('DOMContentLoaded',()=>{
-   const nickname=document.getElementById('profile-nickname');
-   const name=document.getElementById('profile-name');
-   if(nickname)nickname.textContent='@'+currentProfile.nickname;
-   if(name)name.textContent=currentProfile.name;
-   document.querySelectorAll('.mini-user strong').forEach(el=>el.textContent=currentProfile.name||'Visitante');
-   document.querySelectorAll('.mini-user span').forEach(el=>el.textContent='@'+currentProfile.nickname);
-   for(const button of document.querySelectorAll('#logout,#settings-logout')){
-     button.addEventListener('click',event=>{
-       event.preventDefault();
-       ecogramLogout();
-     });
-   }
-   enhanceInterface();
- });
+async function authenticatePage(){
+ try{
+  const {data,error}=await supabase.auth.getUser();
+  if(error||!data?.user){window.location.replace('login.html');return;}
+  const user=data.user;
+  currentProfile=await ensureProfile(user);
+  document.getElementById('profile-name')?.replaceChildren(document.createTextNode(currentProfile.display_name));
+  document.getElementById('profile-nickname')?.replaceChildren(document.createTextNode('@'+currentProfile.username));
+  document.querySelectorAll('.mini-user strong').forEach(el=>el.textContent=currentProfile.display_name);
+  document.querySelectorAll('.mini-user span').forEach(el=>el.textContent='@'+currentProfile.username);
+  const counter=document.getElementById('profile-post-count');
+  if(counter){
+   const {count}=await supabase.from('ecogram_posts').select('id',{count:'exact',head:true}).eq('author_id',user.id);
+   counter.textContent=String(count??0);
+  }
+  for(const button of document.querySelectorAll('#logout,#settings-logout')){
+   button.addEventListener('click',event=>{event.preventDefault();ecogramLogout();});
+  }
+  enhanceInterface();
+  document.documentElement.classList.remove('auth-checking');
+ }catch(error){
+  console.error('EcoGram: não foi possível carregar sua conta',error);
+  const main=document.querySelector('main');
+  if(main){
+   main.replaceChildren();
+   const panel=document.createElement('section');panel.className='surface';panel.style.padding='24px';
+   const message=document.createElement('p');message.textContent='Não foi possível carregar seu perfil: '+friendlyError(error);
+   const back=document.createElement('a');back.href='login.html';back.textContent='Voltar para o login';back.className='green-button';
+   panel.append(message,back);main.append(panel);
+   document.documentElement.classList.remove('auth-checking');
+  }else window.location.replace('login.html');
+ }
 }
-// Encerramento consistente em todas as telas, sem alterar outras abas do navegador.
-function ecogramLogout(){
- sessionStorage.removeItem(ECOGRAM_SESSION);
- sessionStorage.removeItem('ecogram-session-posts');
- sessionStorage.removeItem('ecogram-challenge-selections');
- window.location.replace('login.html');
+async function ecogramLogout(){
+ const controls=[...document.querySelectorAll('#logout,#settings-logout')];
+ controls.forEach(button=>button.setAttribute('aria-disabled','true'));
+ try{
+  const {error}=await supabase.auth.signOut();
+  if(error)throw error;
+  for(const key of ['ecogram-demo-profile','ecogram-session-posts','ecogram-challenge-selections'])sessionStorage.removeItem(key);
+  window.location.replace('login.html');
+ }catch(error){
+  controls.forEach(button=>button.removeAttribute('aria-disabled'));
+  window.ecogramToast?.(friendlyError(error));
+ }
 }
-// Garante que o botão Voltar não exiba uma sessão antiga restaurada pelo navegador.
 window.addEventListener('pageshow',event=>{
- if(!event.persisted)return;
- let profile=null;
- try{profile=JSON.parse(sessionStorage.getItem(ECOGRAM_SESSION)||'null')}catch{}
- if(!profile || typeof profile.nickname!=='string')window.location.replace('login.html');
+ if(event.persisted)authenticatePage();
 });
+document.addEventListener('DOMContentLoaded',authenticatePage);
+
 function enhanceInterface(){
  // Ícones consistentes em vez de símbolos de texto diferentes entre desktop e celular.
  const icons={
@@ -107,7 +124,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(!empty&&podium){empty=document.createElement('p');empty.id='rank-empty';empty.className='form-hint';podium.after(empty)}
   if(empty){empty.hidden=type==='geral';empty.textContent=type==='amigos'?'A classificação entre amigos ficará disponível com perfis conectados.':'A classificação por desafios ficará disponível com o acompanhamento de progresso.';}
  }));
- const count=document.getElementById('profile-post-count');
- if(count){try{const posts=JSON.parse(sessionStorage.getItem('ecogram-session-posts')||'[]');count.textContent=String(Array.isArray(posts)?posts.length:0)}catch{count.textContent='0'}}
  // A saída é controlada pela mesma função no Perfil e em Configurações.
 });
