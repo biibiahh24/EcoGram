@@ -93,3 +93,11 @@ a[aria-disabled="true"],button[aria-disabled="true"]{opacity:.5;pointer-events:n
 .stories .story:hover .story-ring{transform:scale(1.05)}
 @media(max-width:600px){.eco-story-overlay{padding:0}.eco-story-stage{border-radius:0;width:100vw;height:100dvh;max-height:none}.eco-story-back,.eco-story-next{width:44px;height:80px;background:transparent}}
 @media(prefers-reduced-motion:reduce){.eco-story-fill{transition:none!important}}
+
+/* Identidade sem retângulo de fundo ao redor do logotipo. */
+.brand .brand-word,.left-rail .brand img,.mobile-header .brand img{
+ background:transparent!important;border:0!important;border-radius:0!important;
+ object-fit:contain!important;height:auto!important;width:159px!important;
+}
+.mobile-header .brand img{width:145px!important}
+@media(max-width:760px){.mobile-header .brand img{width:145px!important}}
