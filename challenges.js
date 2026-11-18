@@ -1,0 +1,1 @@
+document.querySelectorAll('.join-challenge').forEach((btn,index)=>{btn.addEventListener('click',()=>{const pressed=btn.getAttribute('aria-pressed')==='true';btn.setAttribute('aria-pressed',String(!pressed));btn.textContent=pressed?'Participar':'✓ Participando';});});
