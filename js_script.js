@@ -1,59 +1,66 @@
-// Curtir um post
-function like(btn) {
-  const span = btn.parentElement.querySelector('span');
-  let count = parseInt(span.textContent) || 0;
-  count++;
-  span.textContent = count + " curtidas";
-  btn.style.color = "red"; // muda a cor do coração ao curtir
+// Interações locais da interface original EcoGram/Sustagram.
+// Não dependem de back-end e são reiniciadas ao atualizar a página.
+function like(button) {
+  const pressed = button.getAttribute("aria-pressed") === "true";
+  const selected = !pressed;
+  button.setAttribute("aria-pressed", String(selected));
+  button.style.color = selected ? "#65ff94" : "";
+  const count = button.closest(".post")?.querySelector(".likes-count");
+  if (count) count.textContent = selected ? "1 curtida" : "0 curtidas";
 }
-
-// Abrir / fechar seção de comentários
 function toggleComment(id) {
-  const commentBox = document.getElementById(id);
-  if(commentBox.style.display === "block") {
-    commentBox.style.display = "none";
-  } else {
-    commentBox.style.display = "block";
-  }
+  const panel = document.getElementById(id);
+  if (!panel) return;
+  const showing = panel.style.display === "block";
+  panel.style.display = showing ? "none" : "block";
+  if (!showing) panel.querySelector("input")?.focus();
 }
-
-// Enviar comentário
-function sendComment(postId) {
-  const commentBox = document.getElementById(postId);
-  const input = commentBox.querySelector('input');
-  const val = input.value.trim();
-  if(!val) return;
-  
-  const div = document.createElement('div');
-  div.textContent = "Você: " + val;
-  div.style.padding = "4px 0";
-  div.style.fontSize = "0.9rem";
-  commentBox.insertBefore(div, input);
-  
+function sendComment(id) {
+  const panel = document.getElementById(id);
+  if (!panel) return;
+  const input = panel.querySelector("input");
+  const value = input?.value.trim();
+  if (!value) return;
+  const message = document.createElement("p");
+  message.textContent = "Você: " + value;
+  message.className = "comment-line";
+  panel.insertBefore(message, input);
   input.value = "";
 }
-
-// Abrir story em modal
+async function sharePost(button) {
+  const url = window.location.href;
+  if (navigator.share) {
+    try { await navigator.share({ title: "Sustagram", url }); }
+    catch(error) { if (error.name !== "AbortError") console.warn(error); }
+  } else if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(url);
+    button.setAttribute("title", "Link copiado");
+  } else {
+    button.setAttribute("title", "Copie o endereço desta página para compartilhar");
+  }
+}
 function openStory(src, name) {
-  const modal = document.createElement('div');
-  modal.style.position = 'fixed';
-  modal.style.top = 0;
-  modal.style.left = 0;
-  modal.style.right = 0;
-  modal.style.bottom = 0;
-  modal.style.background = 'rgba(0,0,0,0.6)';
-  modal.style.display = 'flex';
-  modal.style.alignItems = 'center';
-  modal.style.justifyContent = 'center';
-  modal.style.zIndex = 9999;
-
-  modal.innerHTML = `
-    <div style="background:white; padding:16px; border-radius:12px; text-align:center; max-width:90%; max-height:90%; overflow:auto;">
-      <img src="${src}" alt="${name}" style="width:200px; border-radius:12px; display:block; margin:0 auto 12px;">
-      <p style="font-weight:600; margin-bottom:12px;">${name}</p>
-      <button onclick="this.parentElement.parentElement.remove()" style="padding:8px 16px; border:none; border-radius:8px; background:#2e7d32; color:white; cursor:pointer;">Fechar</button>
-    </div>
-  `;
-
-  document.body.appendChild(modal);
+  const overlay = document.createElement("div");
+  overlay.className = "story-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", "Story de " + name);
+  const content = document.createElement("div");
+  content.className = "story-modal";
+  const image = document.createElement("img");
+  image.src = src;
+  image.alt = "Imagem do story de " + name;
+  const caption = document.createElement("p");
+  caption.textContent = name;
+  const close = document.createElement("button");
+  close.type = "button";
+  close.textContent = "Fechar";
+  close.addEventListener("click", () => overlay.remove());
+  overlay.addEventListener("click", event => { if (event.target === overlay) overlay.remove(); });
+  const onKey = event => { if (event.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", onKey); } };
+  document.addEventListener("keydown", onKey);
+  content.append(image, caption, close);
+  overlay.append(content);
+  document.body.append(overlay);
+  close.focus();
 }
