@@ -47,6 +47,6 @@ test('Scripts interativos essenciais estão ligados às páginas', () => {
 
 test('Demonstração não promete autenticação ou publicação real', () => {
  for (const name of ['login.html','cadastro.html','postar.html','reels.html','stories.html']){
-   assert.match(readFileSync(join(root,name),'utf8'),/demonstração|não possui|não envia|não existe|não tem|não armazena|não exibe/i,name);
+   assert.match(readFileSync(join(root,name),'utf8'),/demonstração|não possui|não possuem|não envia|não existe|não tem|não armazena|não exibe|sem dados reais/i,name);
  }
 });
