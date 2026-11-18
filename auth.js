@@ -50,20 +50,28 @@ signup?.addEventListener('submit',async event=>{
  const password=document.getElementById('password').value;
  const display_name=document.getElementById('fullname').value.trim();
  const username=document.getElementById('nickname').value.trim();
+ const confirmation=document.getElementById('confirm-password')?.value;
  if(display_name.length<2||!(/^[a-zA-Z0-9_]{3,20}$/.test(username))){feedback('register-status','Confira seu nome e seu usuário.');busy(signup,false);return;}
+ if(password.length<8){feedback('register-status','Sua senha precisa ter no mínimo 8 caracteres.');busy(signup,false);return;}
+ if(password!==confirmation){feedback('register-status','As senhas não coincidem. Confira os dois campos.');busy(signup,false);return;}
+ if(!document.getElementById('public-info-consent')?.checked){feedback('register-status','Confirme que entendeu quais dados ficam públicos na comunidade.');busy(signup,false);return;}
  try{
+  const existing=await supabase.from('ecogram_profiles').select('id').ilike('username',username).limit(1);
+  if(existing.error)throw existing.error;
+  if(existing.data?.length){feedback('register-status','Esse @usuário já está em uso. Escolha outro.');return;}
   const {data,error}=await supabase.auth.signUp({
    email,password,
    options:{emailRedirectTo:authRedirect(),data:{display_name,username}}
   });
   if(error)throw error;
+  if(!data?.user)throw Error('Não foi possível criar a conta. Tente novamente.');
   if(data.session&&data.user){
    await ensureProfile(data.user);
    window.location.replace('feed.html');
    return;
   }
   signup.reset();
-  feedback('register-status','Cadastro enviado! Confira sua caixa de entrada e confirme o e-mail antes de entrar. Verifique também o spam.');
+  feedback('register-status','Agora confirme seu e-mail! Enviamos as instruções para o endereço informado, se o cadastro puder ser concluído. Verifique também o spam. Depois, volte e entre com sua senha.');
  }catch(error){feedback('register-status',friendlyError(error));}
  finally{busy(signup,false);}
 });
@@ -104,3 +112,31 @@ for(const field of document.querySelectorAll('input'))field.addEventListener('in
  const box=field.closest('form')?.querySelector('[role="alert"]');
  if(box)box.hidden=true;
 });
+
+/* Feedback imediato para o cadastro como em uma rede social. */
+const strengthField=document.getElementById('password');
+const bars=document.querySelector('.strength-bars');
+const strengthLabel=document.getElementById('password-strength-label');
+function scorePassword(value){
+ if(!value)return 0;
+ let points=0;
+ if(value.length>=8)points++;
+ if(value.length>=12)points++;
+ if(/[a-z]/.test(value)&&/[A-Z]/.test(value))points++;
+ if(/[0-9]/.test(value)&&/[^A-Za-z0-9]/.test(value))points++;
+ return Math.max(1,Math.min(4,points));
+}
+if(bars&&strengthField){
+ strengthField.addEventListener('input',()=>{
+  const score=scorePassword(strengthField.value);
+  bars.dataset.strength=String(score);
+  strengthLabel.textContent=['Use ao menos 8 caracteres.','Senha fraca — adicione letras e números.','Senha razoável — pode melhorar.','Boa senha!','Senha forte!'][score];
+ });
+}
+const confirmField=document.getElementById('confirm-password');
+if(confirmField&&strengthField){
+ confirmField.addEventListener('input',()=>{
+  confirmField.setCustomValidity(confirmField.value&&confirmField.value!==strengthField.value?'As senhas precisam ser iguais.':'');
+ });
+ strengthField.addEventListener('input',()=>{confirmField.setCustomValidity('')});
+}
