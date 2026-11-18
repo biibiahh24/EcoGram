@@ -1,11 +1,31 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5faf3"><link rel="icon" href="ecogram-mark.svg" type="image/svg+xml"><title>Entrar · EcoGram</title><link rel="stylesheet" href="auth.css"><script type="module" src="auth.js"></script></head>
-<body class="auth-page"><div class="auth-layout"><aside class="auth-showcase"><div class="showcase-brand"><img src="ecogram-mark.svg" alt="" width="42" height="42"> EcoGram</div><div class="showcase-content"><span>COMUNIDADE SUSTENTÁVEL</span><h2>Conecte-se a quem também quer transformar o mundo.</h2><p>Compartilhe atitudes, inspire mudanças e descubra novas formas de viver com consciência.</p><div class="showcase-photo"><img src="imagemsustentavel.jpg" alt="Paisagem relacionada à sustentabilidade"></div></div></aside><main class="auth-panel"><div class="auth-logo"><img src="ecogram-logo.svg" alt="EcoGram" class="logo-small"></div>
-<section class="auth-card"><p class="auth-kicker">BEM-VINDO DE VOLTA 🌱</p><h1>Entrar no EcoGram</h1><p class="auth-subtitle">Entre na comunidade e descubra novas maneiras de cuidar do planeta.</p>
-<form id="login-form" novalidate><label for="user">E-mail</label><input id="user" name="email" type="email" placeholder="voce@exemplo.com" autocomplete="username" required>
-<label for="password">Senha</label><input id="password" name="password" type="password" placeholder="Sua senha" autocomplete="current-password" required>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5faf3"><link rel="icon" href="ecogram-mark.svg" type="image/svg+xml"><meta name="description" content="EcoGram — rede social sustentável para compartilhar ideias e atitudes que transformam o mundo."><title>Entrar • EcoGram</title><link rel="stylesheet" href="auth.css"><script type="module" src="auth.js"></script></head>
+<body class="auth-page"><div class="auth-layout welcome-layout">
+<aside class="auth-showcase welcome-showcase">
+<a class="showcase-brand" href="login.html" aria-label="EcoGram — início"><img src="ecogram-mark.svg" alt="" width="47" height="47"> Eco<span>Gram</span></a>
+<div class="showcase-content">
+<div class="welcome-community-tag">🌱 Uma comunidade que faz a diferença</div>
+<h2>O seu mundo pode <em>inspirar</em> o nosso.</h2>
+<p>Compartilhe descobertas, encontre pessoas que se importam com o planeta e transforme pequenos hábitos em grandes histórias.</p>
+<div class="welcome-hero-photo"><img src="imagemsustentavel.jpg" alt="Natureza e sustentabilidade" loading="lazy"><div class="welcome-photo-caption"><span>🌍</span><strong>Cada atitude conta.</strong><small>Faça parte dessa mudança.</small></div></div>
+<div class="welcome-social-proof"><span>♻️ Consciência</span><span>🤝 Comunidade</span><span>🌿 Transformação</span></div>
+</div>
+<p class="welcome-footer">EcoGram — conectando pessoas, multiplicando impacto.</p>
+</aside>
+<main class="auth-panel welcome-panel" id="main">
+<div class="auth-logo"><img src="ecogram-logo.svg" alt="EcoGram" class="logo-small"></div>
+<section class="auth-card welcome-card">
+<p class="auth-kicker">QUE BOM TER VOCÊ AQUI</p><h1>Bem-vinda ao EcoGram<span class="welcome-period">.</span></h1>
+<p class="auth-subtitle">Entre na sua conta para acompanhar o que está acontecendo na comunidade.</p>
+<form id="login-form" novalidate>
+<label for="user">E-mail</label><input id="user" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="username" required>
+<div class="auth-label-row"><label for="password">Senha</label><a href="recuperar.html">Esqueceu a senha?</a></div>
+<input id="password" name="password" type="password" placeholder="Digite sua senha" autocomplete="current-password" required>
 <p id="login-error" class="form-error" role="alert" hidden></p>
-<button type="submit" class="primary-button">Entrar</button></form>
-<p class="auth-links"><a href="recuperar.html">Esqueci minha senha</a></p><p class="auth-links">Ainda não tem conta? <a href="cadastro.html">Criar conta</a></p>
-</section><p class="auth-disclaimer">Projeto acadêmico de rede social sustentável. Seus dados de acesso são autenticados pelo Supabase.</p>
+<button type="submit" class="primary-button">Entrar na comunidade <span aria-hidden="true">→</span></button>
+</form>
+<div class="welcome-divider"><span>Nova por aqui?</span></div>
+<a class="welcome-register-link" href="cadastro.html"><span>🌱</span><span><strong>Crie sua conta gratuitamente</strong><small>Encontre seu espaço na comunidade</small></span><span aria-hidden="true">→</span></a>
+</section>
+<p class="auth-disclaimer">Seu acesso utiliza autenticação segura pelo Supabase. O EcoGram é um projeto acadêmico em desenvolvimento.</p>
 </main></div></body></html>
