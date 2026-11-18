@@ -132,3 +132,15 @@ footer a:hover {
     width: 90%;
   }
 }
+/* Ajustes sem substituir o design original verde */
+*{box-sizing:border-box}
+body{padding-bottom:75px}
+main{max-width:1000px;margin:0 auto}
+.explore-card{min-width:0;background:#d9fdd3;border-radius:8px;overflow:hidden;box-shadow:0 3px 10px #16521d22}
+.explore-card img{width:100%;height:200px;object-fit:cover;display:block}
+.explore-card p{padding:10px 12px;margin:0;font-size:14px;color:#1b5e20;font-weight:600}
+.explore-empty{grid-column:1/-1;text-align:center;color:#1b5e20}
+.skip-link{position:absolute;top:0;left:-9999px;padding:10px;background:#fff;color:#1b5e20;z-index:20}
+.skip-link:focus{left:12px}
+.filtro:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1b5e20;outline-offset:2px}
+@media(max-width:600px){.resultados-explorar.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.explore-card img{height:160px}footer{z-index:8}}
