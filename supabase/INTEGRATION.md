@@ -1,46 +1,50 @@
 # EcoGram — integração com dados reais
 
-## Estado atual
+## Estado da implementação
 
-O EcoGram é um **projeto acadêmico real** de rede social sustentável. O front-end publicado usa sessão no navegador e publicações temporárias. Esta branch prepara a próxima etapa: autenticação real e publicações persistidas em **um projeto Supabase exclusivo do EcoGram**.
+O Supabase **EcoGram** foi criado separadamente e as tabelas `ecogram_profiles` e `ecogram_posts` estão ativas, com Row Level Security.
 
-**Não utilize o projeto Supabase do Coletivo Rise.** Não há integração ativa no site de produção até que o ambiente do EcoGram seja criado, validado e configurado.
+A branch `feat/ecogram-backend-foundation` agora implementa o cliente público do Supabase e os seguintes fluxos:
+- Cadastro com e-mail e senha por Supabase Auth (confirmação por e-mail conforme configuração do projeto)
+- Login por e-mail e senha com sessão persistente
+- Criação do perfil depois de autenticação confirmada, respeitando `auth.uid()`
+- Feed com consulta às publicações persistidas
+- Nova publicação de **texto**, salva em `ecogram_posts`
+- Saída pelo Perfil e Configurações com `supabase.auth.signOut()`
+- Pedido de recuperação de senha por e-mail e atualização por link de recuperação
 
-## Etapa 1: Supabase independente
+**A versão pública da Vercel não foi alterada nesta branch.**
 
-1. Criar um novo projeto Supabase, **EcoGram**, na organização e região que a proprietária escolher. Confirmar eventuais custos.
-2. Configurar Auth com e-mail/senha e verificar a configuração de confirmação por e-mail e URLs de redirecionamento.
-3. Aplicar `supabase/schema.sql` no banco **EcoGram**, nunca no banco Rise.
-4. Inspecionar as políticas RLS e testar com dois usuários distintos, com e sem login.
-5. Configurar variáveis públicas de conexão: `SUPABASE_URL` e **publishable key** (ou legacy anon key caso necessário). Nunca expor `service_role`, secret key ou credenciais de banco no front-end.
-6. Escolher e implementar um SDK Supabase JS de versão fixa; usar controles de dependência e commit de lockfile em um projeto com bundler antes de ativar em produção.
+## Configuração de URLs de autenticação necessária
 
-## Fluxos que o novo front-end precisará implementar
+No projeto EcoGram, em [Authentication → URL Configuration](https://supabase.com/dashboard/project/elowpjvepunkcksjcvwe/auth/url-configuration):
 
-- **Cadastro**: email + senha + nome/usuário, confirmação de email quando aplicável, e criação de linha `ecogram_profiles` com `id = auth.uid()`. Tratar erro de nome já existente e confirmação pendente.
-- **Login**: usar o Auth real e redirecionar somente após obter sessão válida.
-- **Perfil**: carregar `ecogram_profiles` pela sessão do usuário.
-- **Feed**: carregar publicações `ecogram_posts` com autores, em ordem decrescente de criação.
-- **Publicar**: gravar `body` e `author_id` associado ao usuário autenticado. Upload de imagem exige bucket e policies de Storage próprias em uma segunda migração; **não ativar uploads remotos sem essas policies**.
-- **Sair**: `supabase.auth.signOut()`, limpar somente caches locais do EcoGram e redirecionar ao login.
-- **Erros/estados**: loading, offline, autenticação expirada, erro no cadastro e feed vazio.
+- Defina **Site URL** como `https://ecogram-pi.vercel.app` para a futura produção.
+- Adicione na lista de **Redirect URLs** as URLs exatas necessárias, como `https://ecogram-pi.vercel.app/login.html` e `https://ecogram-pi.vercel.app/recuperar.html`.
+- Para testar uma prévia hospedada no Vercel, inclua as URLs correspondentes à **prévia que será testada**, sem aceitar domínios arbitrários.
+- Em Authentication → Providers → Email, verifique se a confirmação por e-mail está habilitada como pretendido.
 
-## Verificações de segurança necessárias
+Sem esses ajustes, a verificação de e-mail e a recuperação de senha podem redirecionar para `localhost` ou ser recusadas pelo Supabase.
 
-| Cenário | Resultado esperado |
-|---|---|
-| Visitante lê perfis públicos e publicações | Permitido |
-| Visitante cria, edita ou apaga perfis e posts | Negado |
-| Usuário A cria perfil com ID do usuário B | Negado |
-| Usuário A edita perfil do usuário B | Negado |
-| Usuário A edita ou apaga post de B | Negado |
-| Usuário A cria post com `author_id` de B | Negado |
-| Usuário A cria/edita sua própria publicação | Permitido |
-| Tentar duplicar usuário variando maiúsculas | Negado |
-| Tentar publicar post vazio ou muito longo | Negado |
+## Credenciais
 
-**Limitação:** a migração foi apenas preparada e versionada no GitHub. Não existe projeto Supabase EcoGram conectado nesta etapa e a migração **não foi executada**.
+O front-end utiliza apenas a **publishable key** do EcoGram em `ecogram-client.js`. Esta chave foi projetada para uso público com RLS. **Nunca** inserir service-role/secret key no navegador, repositório ou deployment.
 
-## Protocolo de lançamento
+O banco e a organização do Coletivo Rise não foram usados.
 
-Validar a migração no projeto EcoGram, adicionar testes de integração, conectar autenticação e feed em outra branch/PR, disponibilizar uma prévia protegida na Vercel, testar com duas contas e só então atualizar a produção. A versão publicada permanece intacta até essa validação.
+## Limites desta entrega
+
+- Não existe ainda upload remoto de imagens. O seletor de imagens permanece desativado na integração real até criação de bucket com políticas seguras.
+- Curtidas, comentários, stories, chat, notificações e ranking ainda não estão sincronizados entre usuários; não apresentar exemplos como atividade real.
+- Testes estáticos do código não substituem testes ponta a ponta com **duas contas autenticadas e confirmação de e-mail**.
+- Não publicar a branch em produção antes de validar redirecionamentos de Auth, cadastro, saída, persistência e RLS usando contas distintas.
+
+## Checklist antes de ativar a produção
+
+1. Salvar URLs permitidas na configuração do Supabase Auth.
+2. Confirmar um cadastro real com e-mail acessível.
+3. Entrar, sair e voltar ao site; confirmar que a sessão é persistente e encerra corretamente.
+4. Criar uma publicação, atualizar a página e verificar que ela ainda aparece para outra conta.
+5. Confirmar que um usuário não consegue modificar os dados nem posts de outro.
+6. Confirmar que publicação com imagem está desativada até Storage estar pronto.
+7. Testar desktop e celular; só depois aprovar o Pull Request e publicar em produção.
