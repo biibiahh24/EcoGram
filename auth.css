@@ -357,3 +357,31 @@ body.auth-page{width:100%;min-width:0;max-width:none;margin:0;padding:0;display:
  }
  .welcome-card,.signup-card{padding-inline:18px}
 }
+
+
+/* Marca do EcoGram legível também em telas pequenas, sem o slogan minúsculo. */
+.auth-wordmark{
+ display:flex!important;
+ align-items:center;
+ justify-content:center;
+ gap:10px;
+ width:100%;
+ color:#143d28!important;
+ font:900 clamp(32px,8vw,40px)/1 Nunito,'DM Sans',Arial,sans-serif!important;
+ letter-spacing:-.065em!important;
+ text-decoration:none;
+ white-space:nowrap;
+}
+.auth-wordmark img{
+ display:block;
+ width:56px!important;
+ height:56px!important;
+ max-width:none!important;
+ object-fit:contain;
+ flex:0 0 auto;
+}
+.auth-wordmark span span{color:#35912c}
+@media(max-width:360px){
+ .auth-wordmark{gap:7px;font-size:32px!important}
+ .auth-wordmark img{width:48px!important;height:48px!important}
+}
