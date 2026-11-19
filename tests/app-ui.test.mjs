@@ -85,21 +85,22 @@ test('Entrada e páginas privadas usam módulos autenticados',()=>{
 });
 
 
-test('Stories ilustrativos têm reprodução automática e acessível',()=>{
- const story=readFileSync('js_script.js','utf8');
+test('Stories carregam do Supabase com reprodução automática e controles acessíveis',()=>{
+ const story=readFileSync('ecogram-features.js','utf8');
  const feed=readFileSync('feed.html','utf8');
  const page=readFileSync('stories.html','utf8');
- assert.match(story,/startStories\(/);
- assert.match(story,/setTimeout\(/);
- assert.match(story,/eco-story-fill/);
- assert.match(story,/function togglePause\(/);
- assert.match(story,/ArrowRight/);
- assert.match(story,/ArrowLeft/);
- assert.match(story,/Escape/);
- assert.match(story,/touchend/);
- assert.match(feed,/startStories\(0\)/);
- assert.match(page,/js_script\.js/);
- assert.match(page,/Story|Stories/);
+ assert.match(story,/function storyView\(/);
+ assert.match(story,/setTimeout\(\(\)=>show\(index\+1\),5500\)/);
+ assert.match(story,/aria-modal/);
+ assert.match(story,/Fechar stories/);
+ assert.match(story,/clearTimeout\(timer\)/);
+ assert.match(story,/function renderStories\(user\)/);
+ assert.match(story,/storyView\(rows\.filter/);
+ assert.match(story,/#story-play/);
+ assert.match(feed,/class="stories"/);
+ assert.match(feed,/ecogram-features\.js/);
+ assert.match(page,/id="story-play"/);
+ assert.match(page,/ecogram-features\.js/);
 });
 test('Cadastro EcoGram exige informações completas e confirmação',()=>{
  const page=readFileSync('cadastro.html','utf8');
