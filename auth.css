@@ -307,3 +307,53 @@ body.auth-page{width:100%;min-width:0;max-width:none;margin:0;padding:0;display:
   width:min(250px,calc(100vw - 54px))!important;
  }
 }
+
+
+/* Corrige a leitura do login em telas estreitas e dá destaque real à marca. */
+.welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+ width:min(300px,100%)!important;
+ max-width:100%!important;
+ height:auto!important;
+ margin-inline:auto!important;
+}
+.auth-layout.welcome-layout,.auth-layout.signup-layout,
+.welcome-panel,.signup-panel,.welcome-card,.signup-card{
+ min-width:0;
+}
+@media(max-width:900px){
+ .auth-layout.welcome-layout,.auth-layout.signup-layout{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  min-width:0!important;
+  overflow-x:clip;
+ }
+ .welcome-showcase,.signup-showcase{display:none!important}
+ .welcome-panel,.signup-panel{
+  display:flex!important;
+  flex-direction:column;
+  justify-content:center;
+  width:100%!important;
+  max-width:520px!important;
+  min-width:0!important;
+  min-height:100svh;
+  margin:0 auto!important;
+  padding:24px clamp(12px,4vw,20px)!important;
+ }
+ .welcome-card,.signup-card{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-inline:auto!important;
+ }
+ .welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+  width:min(280px,100%)!important;
+  max-width:100%!important;
+ }
+}
+@media(max-width:360px){
+ .welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+  width:calc(100vw - 32px)!important;
+ }
+ .welcome-card,.signup-card{padding-inline:18px}
+}
