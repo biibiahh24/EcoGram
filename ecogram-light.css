@@ -233,3 +233,16 @@ body{background:var(--bg);color:var(--text);line-height:1.5}
  .shell{width:100%;max-width:none;margin:0;padding:0}
  .main-column{width:100%;max-width:none}
 }
+
+
+/* Logotipo maior e legível no cabeçalho mobile e na barra lateral. */
+@media(min-width:761px){
+ .left-rail .brand img.brand-word{width:180px!important;max-width:100%!important;height:auto!important}
+}
+@media(max-width:760px){
+ .mobile-header .brand img.brand-word{
+  width:clamp(160px,61vw,185px)!important;
+  max-width:calc(100vw - 115px)!important;
+  height:auto!important;
+ }
+}
