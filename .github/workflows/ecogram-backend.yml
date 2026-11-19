@@ -6,7 +6,7 @@ on:
       - 'tests/ecogram-schema.test.mjs'
       - '.github/workflows/ecogram-backend.yml'
   push:
-    branches: [feat/ecogram-backend-foundation]
+    branches: [main]
 permissions:
   contents: read
 jobs:

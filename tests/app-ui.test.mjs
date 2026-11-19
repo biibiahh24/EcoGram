@@ -63,7 +63,7 @@ test('Integração Supabase preserva segurança de autenticação',()=>{
  const client=readFileSync('ecogram-client.js','utf8');
  const auth=readFileSync('auth.js','utf8');
  const session=readFileSync('app-session.js','utf8');
- const posts=readFileSync('new-post.js','utf8');
+ const features=readFileSync('ecogram-features.js','utf8');
  assert.match(client,/sb_publishable_/);
  assert.doesNotMatch(client,/['"]sb_secret_[A-Za-z0-9_-]+['"]/);
  assert.doesNotMatch(client,/role\s*:\s*['"]service_role['"]/);
@@ -73,9 +73,9 @@ test('Integração Supabase preserva segurança de autenticação',()=>{
  assert.match(auth,/updateUser\(/);
  assert.match(session,/auth\.getUser\(/);
  assert.match(session,/auth\.signOut\(/);
- assert.match(posts,/from\('ecogram_posts'\)/);
- assert.match(posts,/\.insert\(\{author_id:data\.user\.id,body:caption\}\)/);
- assert.doesNotMatch(posts,/sessionStorage\.setItem\(POST_KEY/);
+ for(const table of ['ecogram_posts','ecogram_likes','ecogram_comments','ecogram_stories','ecogram_messages'])
+  assert.match(features,new RegExp("from\\('"+table+"'\\)"),table);
+ assert.match(features,/storage\.from\('ecogram-media'\)\.upload/);
 });
 test('Entrada e páginas privadas usam módulos autenticados',()=>{
  for(const p of ['login.html','cadastro.html','recuperar.html'])

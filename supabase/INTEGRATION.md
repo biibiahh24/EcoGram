@@ -1,50 +1,43 @@
-# EcoGram — integração com dados reais
+# EcoGram — integração com Supabase
 
-## Estado da implementação
+## Estado no repositório
 
-O Supabase **EcoGram** foi criado separadamente e as tabelas `ecogram_profiles` e `ecogram_posts` estão ativas, com Row Level Security.
+A aplicação ativa está na raiz do repositório e a branch principal é `main`. O deploy de produção é servido por [ecogram-pi.vercel.app](https://ecogram-pi.vercel.app/).
 
-A branch `feat/ecogram-backend-foundation` agora implementa o cliente público do Supabase e os seguintes fluxos:
-- Cadastro com e-mail e senha por Supabase Auth (confirmação por e-mail conforme configuração do projeto)
-- Login por e-mail e senha com sessão persistente
-- Criação do perfil depois de autenticação confirmada, respeitando `auth.uid()`
-- Feed com consulta às publicações persistidas
-- Nova publicação de **texto**, salva em `ecogram_posts`
-- Saída pelo Perfil e Configurações com `supabase.auth.signOut()`
-- Pedido de recuperação de senha por e-mail e atualização por link de recuperação
+O front-end usa o cliente Supabase em `ecogram-client.js`, com o SDK `@supabase/supabase-js@2.95.0`. A chave publicada no código é uma publishable key, adequada para uso no navegador quando as políticas RLS estão aplicadas. Nunca use uma chave `service_role` no cliente ou no repositório.
 
-**A versão pública da Vercel não foi alterada nesta branch.**
+## Fluxos implementados no cliente
 
-## Configuração de URLs de autenticação necessária
+- Cadastro com e-mail e senha, metadados de perfil e redirecionamento para confirmação de e-mail.
+- Login com senha, sessão persistente, criação do perfil e saída.
+- Recuperação de senha por e-mail e definição da nova senha.
+- Feed com publicações persistidas, curtidas e comentários.
+- Upload de imagens para publicações e stories.
+- Explorar perfis e conexões, progresso de desafios, conversas, mensagens, notificações e ranking calculado.
 
-No projeto EcoGram, em [Authentication → URL Configuration](https://supabase.com/dashboard/project/elowpjvepunkcksjcvwe/auth/url-configuration):
+O fato de um fluxo estar ligado ao cliente e ao esquema não substitui a validação ponta a ponta no projeto Supabase ativo.
 
-- Defina **Site URL** como `https://ecogram-pi.vercel.app` para a futura produção.
-- Adicione na lista de **Redirect URLs** as URLs exatas necessárias, como `https://ecogram-pi.vercel.app/login.html` e `https://ecogram-pi.vercel.app/recuperar.html`.
-- Para testar uma prévia hospedada no Vercel, inclua as URLs correspondentes à **prévia que será testada**, sem aceitar domínios arbitrários.
-- Em Authentication → Providers → Email, verifique se a confirmação por e-mail está habilitada como pretendido.
+## Banco, políticas e Storage
 
-Sem esses ajustes, a verificação de e-mail e a recuperação de senha podem redirecionar para `localhost` ou ser recusadas pelo Supabase.
+- `schema.sql` é o esquema-base para `ecogram_profiles` e `ecogram_posts`.
+- `migrations/20261118231500_ecogram_social_features.sql` acrescenta curtidas, comentários, stories, progresso de desafios, conexões, conversas, mensagens, notificações e o bucket `ecogram-media`.
+- Os arquivos definem Row Level Security (RLS), privilégios e políticas de armazenamento. Aplique-os no projeto Supabase do EcoGram, na ordem acima, e confira o resultado no próprio painel.
+- O bucket de mídia é público para leitura, apropriado para conteúdo social público. O upload exige sessão autenticada e grava dentro da pasta identificada pelo ID do usuário.
+- E-mail e senha ficam no Supabase Auth; não armazene credenciais nas tabelas de perfil. Trate biografias, publicações e mídias como conteúdo público.
 
-## Credenciais
+## URLs de autenticação
 
-O front-end utiliza apenas a **publishable key** do EcoGram em `ecogram-client.js`. Esta chave foi projetada para uso público com RLS. **Nunca** inserir service-role/secret key no navegador, repositório ou deployment.
+O código usa a origem atual do site e os seguintes caminhos:
 
-O banco e a organização do Coletivo Rise não foram usados.
+- Cadastro/confirmação: `/login.html`.
+- Recuperação e atualização de senha: `/recuperar.html`.
 
-## Limites desta entrega
+No Supabase Auth, mantenha a URL do site em `https://ecogram-pi.vercel.app` e permita os dois endereços de produção acima. Para prévias Vercel e desenvolvimento local, adicione somente as origens e caminhos exatos necessários para os testes; não habilite curingas para domínios arbitrários. A confirmação por e-mail deve seguir a configuração de Email Providers desejada.
 
-- Não existe ainda upload remoto de imagens. O seletor de imagens permanece desativado na integração real até criação de bucket com políticas seguras.
-- Curtidas, comentários, stories, chat, notificações e ranking ainda não estão sincronizados entre usuários; não apresentar exemplos como atividade real.
-- Testes estáticos do código não substituem testes ponta a ponta com **duas contas autenticadas e confirmação de e-mail**.
-- Não publicar a branch em produção antes de validar redirecionamentos de Auth, cadastro, saída, persistência e RLS usando contas distintas.
+## Execução e validação
 
-## Checklist antes de ativar a produção
+Sirva os arquivos pela raiz do repositório usando HTTP; módulos ES não funcionam corretamente ao abrir páginas por `file://`.
 
-1. Salvar URLs permitidas na configuração do Supabase Auth.
-2. Confirmar um cadastro real com e-mail acessível.
-3. Entrar, sair e voltar ao site; confirmar que a sessão é persistente e encerra corretamente.
-4. Criar uma publicação, atualizar a página e verificar que ela ainda aparece para outra conta.
-5. Confirmar que um usuário não consegue modificar os dados nem posts de outro.
-6. Confirmar que publicação com imagem está desativada até Storage estar pronto.
-7. Testar desktop e celular; só depois aprovar o Pull Request e publicar em produção.
+O GitHub Actions valida sintaxe JavaScript e executa testes estáticos de páginas, recursos e estrutura-base do SQL. Esses checks não executam as migrações em um banco remoto, não comprovam a configuração do painel Supabase e não são testes ponta a ponta.
+
+Antes de considerar os fluxos validados em produção, teste cadastro e confirmação, login, saída, recuperação, persistência e políticas RLS com duas contas. Confirme também que uma conta não consegue editar registros de outra.

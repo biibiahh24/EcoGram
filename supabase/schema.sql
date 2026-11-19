@@ -1,6 +1,6 @@
--- EcoGram: primeira etapa de dados reais (aplicar somente em projeto Supabase próprio)
--- A versão publicada continua intacta até a configuração e validação desta migração.
--- Dados públicos de perfil: não armazenar e-mail, senha ou dados privados nesta tabela.
+-- EcoGram base schema: perfis públicos e publicações.
+-- Aplique no projeto Supabase do EcoGram antes das migrações sociais.
+-- Não armazene e-mail, senha ou outros dados privados nas tabelas públicas.
 begin;
 
 create table if not exists public.ecogram_profiles (
