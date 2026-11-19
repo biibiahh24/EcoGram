@@ -97,7 +97,7 @@ test('Stories carregam do Supabase com reprodução automática e controles aces
  assert.match(story,/function renderStories\(user\)/);
  assert.match(story,/storyView\(rows\.filter/);
  assert.match(story,/#story-play/);
- assert.match(feed,/class="stories"/);
+ assert.match(feed,/class="[^"]*\\bstories\\b/);
  assert.match(feed,/ecogram-features\.js/);
  assert.match(page,/id="story-play"/);
  assert.match(page,/ecogram-features\.js/);
