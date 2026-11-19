@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="ecogram-mark.svg" type="image/svg+xml"><meta name="theme-color" content="#f6f8f5"><title>Stories • EcoGram</title><link rel="stylesheet" href="app-ui.css"><link rel="stylesheet" href="ecogram-light.css"><script type="module" src="app-session.js"></script><script src="js_script.js" defer></script></head><body>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="ecogram-mark.svg" type="image/svg+xml"><meta name="theme-color" content="#f6f8f5"><title>Stories • EcoGram</title><link rel="stylesheet" href="app-ui.css"><link rel="stylesheet" href="ecogram-light.css"><link rel="stylesheet" href="ecogram-social.css"><script type="module" src="app-session.js"></script></head><body>
 <a class="skip-link" href="#main">Pular para o conteúdo</a>
 <div class="mobile-header"><a class="brand" href="feed.html"><img class="brand-word" src="ecogram-logo.svg" alt="EcoGram"></a></div>
 <div class="shell"><aside class="left-rail"><a class="brand" href="feed.html"><img class="brand-word" src="ecogram-logo.svg" alt="EcoGram"></a><nav class="sidebar-nav" aria-label="Navegação principal"><a href="feed.html"><span class="nav-icon" aria-hidden="true">⌂</span>Início</a><a href="explorar.html"><span class="nav-icon" aria-hidden="true">⌕</span>Explorar</a><a href="perfil.html"><span class="nav-icon" aria-hidden="true">◎</span>Perfil</a></nav></aside>
@@ -7,15 +7,15 @@
 <div class="wire-banner"><span class="illustration" aria-hidden="true">▶</span><div><h2>Assista à sequência</h2><p>5,5 segundos por história, com pausa, progresso e navegação lateral.</p></div></div>
 <section class="surface" style="padding:24px">
 <h2 style="font-size:18px;margin-bottom:9px">Descubra histórias da comunidade</h2>
-<p style="color:var(--muted);margin-top:0">Estas histórias são exemplos visuais enquanto desenvolvemos a publicação de stories por usuários.</p>
-<button class="green-button" type="button" onclick="startStories(0)">▶ Assistir stories</button>
+<p style="color:var(--muted);margin-top:0">Stories publicados pela comunidade ficam disponíveis por 24 horas.</p>
+<button class="green-button" type="button" id="story-play">▶ Assistir stories</button>
 <div class="stories" style="display:flex;gap:12px;margin-top:16px;padding:15px">
-<button type="button" class="story" onclick="openStory('imagem3.png','Maria')"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Maria</span></button>
-<button type="button" class="story" onclick="openStory('imagem4.png','Lucas')"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Lucas</span></button>
-<button type="button" class="story" onclick="openStory('imagem2.jpg','Ana')"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Ana</span></button>
-<button type="button" class="story" onclick="openStory('imagemsustentavel.jpg','Natureza')"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Natureza</span></button>
+<button type="button" class="story"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Maria</span></button>
+<button type="button" class="story"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Lucas</span></button>
+<button type="button" class="story"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Ana</span></button>
+<button type="button" class="story"><span class="story-ring"><img src="perfil.png" alt=""></span><span>Natureza</span></button>
 </div></section>
-<p class="form-hint" style="margin-top:17px">A criação e o compartilhamento de stories reais exigirão armazenamento de imagens no Supabase, que será uma etapa futura.</p>
+<p class="form-hint" style="margin-top:17px">Publique uma foto para compartilhar seu story por 24 horas.</p>
 </main></div>
 <nav class="bottom-nav" aria-label="Navegação inferior"><a href="feed.html"><b aria-hidden="true">⌂</b><span>Início</span></a><a href="explorar.html"><b aria-hidden="true">⌕</b><span>Explorar</span></a><a href="postar.html"><b aria-hidden="true">⊕</b><span>Publicar</span></a><a href="desafios.html"><b aria-hidden="true">♧</b><span>Desafios</span></a><a href="perfil.html"><b aria-hidden="true">◎</b><span>Perfil</span></a></nav>
-</body></html>
+<script type="module" src="ecogram-features.js"></script></body></html>
