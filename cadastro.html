@@ -1,41 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Criar conta - Susty</title>
-  <link rel="stylesheet" href="index.css">
-</head>
-<body>
-
-  <!-- Logo EcoGram -->
-  <div class="logo-container">
-    <img src="EcoGram.png" alt="Logo EcoGram" class="logo">
-  </div>
-
-  <div class="card">
-    <h1>Criar Conta</h1>
-
-    <form action="feed.html" method="post">
-      <label>Nome completo</label><br>
-      <input type="text" name="nome"><br><br>
-
-      <label>Data de nascimento</label><br>
-      <input type="date" name="nascimento"><br><br>
-
-      <label>Email</label><br>
-      <input type="email" name="email"><br><br>
-
-      <label>Telefone</label><br>
-      <input type="tel" name="telefone"><br><br>
-
-      <label>Senha</label><br>
-      <input type="password" name="senha"><br><br>
-
-      <button type="submit">Criar</button>
-    </form>
-
-    <p>Já tem conta? <a href="login.html">Entrar</a></p>
-  </div>
-
-</body>
-</html>
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5faf3"><link rel="icon" href="ecogram-mark.svg" type="image/svg+xml"><meta name="description" content="Crie sua conta EcoGram e conecte-se à comunidade sustentável."><title>Criar conta • EcoGram</title><link rel="stylesheet" href="auth.css"><script type="module" src="auth.js"></script></head>
+<body class="auth-page"><div class="auth-layout signup-layout">
+<aside class="auth-showcase signup-showcase">
+<a class="showcase-brand" href="login.html" aria-label="EcoGram — início"><img src="ecogram-mark.svg" alt="" width="47" height="47"> Eco<span>Gram</span></a>
+<div class="showcase-content"><div class="welcome-community-tag">🌱 SUA JORNADA COMEÇA AQUI</div><h2>Encontre sua <em>comunidade verde.</em></h2><p>Compartilhe atitudes, crie conexões e inspire mudanças. Aqui, cada pessoa tem voz e cada passo importa.</p><div class="signup-steps"><div><span>01</span><strong>Crie seu perfil</strong><small>Seu espaço na comunidade</small></div><div><span>02</span><strong>Confirme seu e-mail</strong><small>Proteção para sua conta</small></div><div><span>03</span><strong>Faça a diferença</strong><small>Explore e compartilhe ideias</small></div></div></div>
+<p class="welcome-footer">Pequenas atitudes. Grandes transformações.</p>
+</aside>
+<main class="auth-panel signup-panel" id="main">
+<div class="auth-logo"><a class="auth-wordmark" href="login.html" aria-label="EcoGram — início"><img src="ecogram-mark.svg" alt=""><span>Eco<span>Gram</span></span></a></div>
+<section class="auth-card signup-card"><p class="auth-kicker">FAÇA PARTE DO ECOGRAM</p><h1>Crie sua conta<span class="welcome-period">.</span></h1><p class="auth-subtitle">É gratuito. Preencha seus dados para começar.</p>
+<form id="register-form" novalidate>
+<label for="fullname">Nome de exibição</label><input id="fullname" name="fullname" type="text" autocomplete="name" placeholder="Como quer ser chamado(a)" minlength="2" maxlength="50" required>
+<label for="nickname">Nome de usuário</label><div class="auth-handle-wrap"><span aria-hidden="true">@</span><input id="nickname" name="nickname" type="text" autocomplete="nickname" pattern="[a-zA-Z0-9_]{3,20}" minlength="3" maxlength="20" title="De 3 a 20 letras, números e sublinhados" placeholder="seu_usuario" required></div><small class="auth-input-hint">De 3 a 20 letras, números ou _; sem espaços.</small>
+<label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com" required>
+<label for="password">Crie uma senha</label><input id="password" name="password" type="password" autocomplete="new-password" placeholder="Pelo menos 8 caracteres" minlength="8" maxlength="72" required>
+<div class="password-strength" aria-live="polite"><span class="strength-bars"><i></i><i></i><i></i><i></i></span><small id="password-strength-label">Use letras, números e símbolos.</small></div>
+<label for="confirm-password">Confirme a senha</label><input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" placeholder="Digite a senha novamente" minlength="8" maxlength="72" required>
+<label class="auth-consent" for="public-info-consent"><input id="public-info-consent" type="checkbox" required><span>Entendo que meu nome de exibição, usuário, biografia e publicações poderão aparecer publicamente na comunidade.</span></label>
+<p id="register-status" class="auth-feedback" role="alert" hidden></p>
+<button type="submit" class="primary-button">Criar conta no EcoGram <span aria-hidden="true">→</span></button>
+</form>
+<p class="auth-links">Já tem uma conta? <a href="login.html">Entrar</a></p></section>
+<p class="auth-disclaimer">Após o cadastro, confirme seu e-mail para ativar o acesso. Não compartilhe sua senha.</p>
+</main></div></body></html>

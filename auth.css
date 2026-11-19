@@ -1,0 +1,387 @@
+*{box-sizing:border-box}html{font-family:Arial,Helvetica,sans-serif}body{margin:0}.auth-page{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:linear-gradient(135deg,#3edf81 0%,#9bf0a9 100%);color:#202520}.auth-panel{width:100%;max-width:430px}.auth-logo{text-align:center;margin-bottom:8px}.logo-small{width:170px;max-width:100%;max-height:130px;object-fit:contain}.auth-card{padding:28px 30px;background:#fff;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.15)}.auth-kicker{font-size:11px;letter-spacing:1.6px;color:#138744;font-weight:800;margin:0 0 9px}.auth-card h1{font-size:27px;line-height:1.1;letter-spacing:-.4px;color:#1a321e;margin:0 0 10px}.auth-subtitle{font-size:14px;line-height:1.6;color:#647167;margin:0 0 24px}.auth-card form{display:grid;gap:6px}.auth-card label{font-weight:700;font-size:13px;color:#2a3d2e;margin-top:8px}.auth-card input{width:100%;padding:12px 13px;border:1px solid #c8dccf;border-radius:8px;color:#1c2b21;font-size:15px;outline:none;background:#fff}.auth-card input:focus{border-color:#14b35b;box-shadow:0 0 0 3px #14b35b20}.primary-button,.secondary-button{width:100%;border-radius:8px;font-size:14px;font-weight:800;min-height:44px;cursor:pointer}.primary-button{margin-top:17px;background:#14b35b;border:1px solid #14b35b;color:#fff}.primary-button:hover{background:#0f924b}.secondary-button{background:#f6fff8;color:#087738;border:1px solid #b3d8bf}.secondary-button:hover{background:#e9f9ed}.as-link{display:flex;align-items:center;justify-content:center;text-decoration:none}.demo-access{margin-top:22px;padding:14px;border-radius:10px;background:#f2faf4;border:1px solid #d5ecdd}.demo-access>span{font-size:12px;font-weight:800;color:#287547}.demo-access p{font-size:13px;color:#485c4d;margin:7px 0 12px}.auth-links{font-size:13px;color:#5a6a5f;text-align:center;margin:18px 0 0}.auth-links a{color:#0c8746;font-weight:700;text-decoration:none}.auth-links a:hover{text-decoration:underline}.auth-disclaimer{color:#175d31;text-align:center;font-size:12px;line-height:1.6;padding:0 18px}.form-error{color:#b42318;font-size:13px;background:#fff2f1;border-radius:7px;padding:10px}.form-error[hidden]{display:none}button:focus-visible,a:focus-visible{outline:3px solid #0b7b37;outline-offset:3px}@media(max-width:480px){.auth-card{padding:24px 20px}.auth-logo .logo-small{width:150px}}
+/* Nova composição visual para login, mantendo a paleta verde EcoGram */
+.auth-page{background:#e7f6e7;color:#17291d;min-height:100svh;display:block;padding:0}
+.auth-layout{min-height:100svh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(400px,.95fr)}
+.auth-showcase{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:38px clamp(24px,5vw,90px);background:linear-gradient(150deg,#174c2d,#0f241a);color:#fff}
+.showcase-brand{font-weight:800;font-family:Manrope,Arial,sans-serif;font-size:27px;letter-spacing:-1.3px}
+.showcase-content{max-width:550px;margin:auto 0}.showcase-content>span{color:#a5e9b7;font-size:11px;letter-spacing:2px;font-weight:800}
+.showcase-content h2{font:800 clamp(34px,3.5vw,58px)/1.12 Manrope,Arial,sans-serif;letter-spacing:-.055em;margin:17px 0}.showcase-content p{color:#c4dcc9;font-size:15px;max-width:480px;line-height:1.65}
+.showcase-photo{margin-top:34px;height:230px;max-width:470px;overflow:hidden;border-radius:22px;border:1px solid #69977566}.showcase-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.auth-panel{max-width:460px;margin:auto;padding:42px 22px}.auth-logo{text-align:left;margin-bottom:24px}.auth-card{padding:32px 35px;border:1px solid #d7e4d9;border-radius:20px;box-shadow:0 22px 50px #2e64301a}.auth-card h1{font-size:31px;letter-spacing:-1.2px}.auth-subtitle{font-size:14px}.auth-card input{min-height:46px;border-radius:10px}.auth-card .primary-button{border-radius:11px;min-height:47px}.auth-card .secondary-button{border-radius:11px}
+.auth-disclaimer{color:#53745b}.auth-links a{color:#126e37}
+@media(max-width:900px){.auth-layout{grid-template-columns:minmax(0,1fr)}.auth-showcase{display:none}.auth-panel{max-width:480px;min-height:100svh;display:flex;flex-direction:column;justify-content:center}.auth-page{background:linear-gradient(160deg,#d6f4d9,#f6faf6)}.auth-card{background:#fff}}
+@media(max-width:420px){.auth-panel{padding:24px 13px}.auth-card{padding:26px 22px}.auth-logo{text-align:center}}
+
+body.auth-page:has(> .auth-panel){display:grid;place-items:center}
+
+/* Acabamento das telas de entrada e cadastro */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+.auth-page{font-family:'DM Sans',Arial,sans-serif}
+.auth-card h1,.showcase-content h2,.showcase-brand{font-family:Manrope,Arial,sans-serif}
+.auth-card{position:relative;overflow:hidden}
+.auth-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#198742,#8fdaa3)}
+.auth-kicker{letter-spacing:.13em;color:#277d43}
+.auth-card h1{letter-spacing:-.055em;line-height:1.13}
+.auth-card label{letter-spacing:.01em;margin-top:11px}
+.auth-card input{transition:border-color .15s,box-shadow .15s;background:#fcfefc}
+.auth-card input:hover{border-color:#92bca0}
+.auth-card .primary-button{background:#138a45;box-shadow:0 5px 13px rgba(19,138,69,.12);transition:transform .17s,background .17s,box-shadow .17s}
+.auth-card .primary-button:hover{background:#0e7138;box-shadow:0 7px 18px rgba(19,138,69,.16);transform:translateY(-1px)}
+.auth-card .secondary-button{transition:background .17s,border-color .17s}
+.auth-card .secondary-button:hover{border-color:#82b693}
+.demo-access{border-radius:12px}
+.showcase-photo img{object-position:center 50%}
+.showcase-photo{box-shadow:0 20px 38px #0004}
+.showcase-content h2{max-width:600px}
+.auth-logo img{max-height:100px}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:77px}
+.password-toggle{position:absolute;right:5px;top:4px;height:38px;padding:0 9px;border:0;border-radius:7px;background:transparent;color:#247841;font-weight:700;font-size:12px;cursor:pointer}
+.password-toggle:hover{background:#e7f5eb}
+@media(max-width:900px){.auth-panel{max-width:490px}.auth-card{box-shadow:0 15px 45px #2e643020}}
+@media(max-width:420px){.auth-card h1{font-size:27px}.auth-card{border-radius:16px}.auth-panel{min-height:100svh}}
+@media(prefers-reduced-motion:reduce){.auth-card .primary-button:hover{transform:none}}
+
+/* Identidade visual EcoGram — aprovada no wireframe */
+.auth-page{background:#f4f9f2;color:#1e3c27}
+.auth-layout{background:#f8fbf6}
+.auth-showcase{background:radial-gradient(ellipse at 85% 15%,#e1f4d3,transparent 48%),linear-gradient(130deg,#eef8e8,#e0f2d8);color:#205032}
+.showcase-brand{display:flex;gap:12px;align-items:center;color:#276836;font-family:Nunito,Arial,sans-serif;font-size:28px}
+.showcase-brand img{width:44px;height:44px}
+.showcase-content>span{color:#338d2b}
+.showcase-content h2{color:#225532;font-family:Nunito,Arial,sans-serif;letter-spacing:-.045em}
+.showcase-content p{color:#5c8263}
+.showcase-photo{border:5px solid #fff;box-shadow:0 12px 36px #478a4930}
+.auth-panel{max-width:475px}
+.auth-card{border-color:#dfeada;box-shadow:0 12px 40px #2f6d3520}
+.auth-card:before{background:linear-gradient(90deg,#2f8c31,#98d842)}
+.auth-logo{text-align:center;margin-bottom:19px}
+.auth-logo .logo-small{display:block;width:270px;max-height:none;height:auto;margin:0 auto;object-fit:contain}
+.auth-card h1{color:#204b2e;font-family:Nunito,Arial,sans-serif}
+.auth-kicker{color:#328d2d}
+.auth-card .primary-button{background:#3a982e}
+.auth-card .primary-button:hover{background:#297f25}
+.auth-card input:focus{border-color:#62af51;box-shadow:0 0 0 3px #b7dfaf55}
+.auth-disclaimer{color:#748d78}
+body.auth-page:has(> .auth-panel){background:#f4faf1;min-height:100svh}
+@media(max-width:900px){.auth-page{background:#f5faf1}.auth-card{background:white}.auth-logo .logo-small{width:230px}}
+@media(max-width:420px){.auth-logo .logo-small{width:210px}.auth-card{box-shadow:0 8px 30px #377c3913}}
+
+/* Mensagens de erro e confirmação de autenticação online */
+.auth-feedback{padding:12px 13px;border-radius:9px;background:#eef8ec;border:1px solid #c7e4c0;color:#24652f;font-size:13px;line-height:1.5}
+.auth-feedback[hidden],#recover-form[hidden],#reset-form[hidden]{display:none!important}
+.auth-card button[disabled]{opacity:.65;cursor:progress}
+
+
+/* EcoGram onboarding v3 — uma rede social calorosa, não uma tela de teste */
+.auth-layout.welcome-layout,.auth-layout.signup-layout{grid-template-columns:minmax(0,1fr) minmax(450px,.82fr);background:#f9fcf8;min-height:100svh}
+.welcome-showcase,.signup-showcase{background:radial-gradient(circle at 86% 17%,#d3f1bb 0%,transparent 31%),radial-gradient(circle at 8% 88%,#d4edcc 0%,transparent 30%),linear-gradient(135deg,#f2faed,#e5f4dc 70%,#f0f9ea);padding:36px clamp(30px,4.8vw,82px);color:#194a2c}
+.welcome-showcase .showcase-brand,.signup-showcase .showcase-brand{text-decoration:none;font-family:Nunito,'DM Sans',sans-serif;letter-spacing:-.06em;font-weight:900;font-size:28px;color:#15432a}
+.showcase-brand span{color:#35912c}
+.welcome-showcase .showcase-content,.signup-showcase .showcase-content{max-width:560px}
+.welcome-community-tag{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:30px;background:#d9efcc;color:#316f39;font-size:11px;font-weight:900;letter-spacing:.045em}
+.welcome-showcase .showcase-content h2,.signup-showcase .showcase-content h2{color:#153d27;font-family:Nunito,'DM Sans',sans-serif;font-size:clamp(40px,4.25vw,67px);line-height:1.055;letter-spacing:-.055em;max-width:630px;margin:23px 0}
+.welcome-showcase .showcase-content h2 em,.signup-showcase .showcase-content h2 em{font-style:normal;color:#38962d}
+.welcome-showcase .showcase-content p,.signup-showcase .showcase-content p{color:#53775d;font-size:15px;line-height:1.75;max-width:455px}
+.welcome-hero-photo{position:relative;width:min(100%,510px);height:225px;border-radius:24px;overflow:hidden;margin-top:32px;box-shadow:0 21px 50px #38743229;border:5px solid #fff}
+.welcome-hero-photo>img{display:block;width:100%;height:100%;object-fit:cover}
+.welcome-photo-caption{position:absolute;left:15px;right:15px;bottom:12px;background:#fffef3e8;color:#24512d;backdrop-filter:blur(14px);padding:12px 16px;border-radius:14px;display:grid;grid-template-columns:35px 1fr;gap:0 9px;align-items:center}
+.welcome-photo-caption span{grid-row:span 2;font-size:26px}
+.welcome-photo-caption strong{font-family:Nunito,sans-serif;font-size:15px}
+.welcome-photo-caption small{font-size:11px;color:#648267}
+.welcome-social-proof{display:flex;flex-wrap:wrap;gap:9px;margin-top:23px}
+.welcome-social-proof span{background:#ffffffb2;border:1px solid #d9ead3;border-radius:25px;padding:8px 12px;color:#456e4b;font-size:11px;font-weight:800}
+.welcome-footer{color:#739274;font-size:12px;font-weight:600;margin:20px 0 0}
+.welcome-panel,.signup-panel{width:100%;max-width:550px;padding:33px 38px}
+.welcome-panel .auth-logo,.signup-panel .auth-logo{text-align:center;margin-bottom:22px}
+.welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{width:245px;max-height:110px}
+.welcome-card,.signup-card{border:1px solid #e2eee0;box-shadow:0 14px 48px #295c2d10;border-radius:24px;padding:36px clamp(24px,3vw,43px)}
+.welcome-card:before,.signup-card:before{height:3px;background:linear-gradient(90deg,#32852e,#b1e461)}
+.welcome-card h1,.signup-card h1{font-family:Nunito,'DM Sans',sans-serif;font-size:clamp(27px,2.8vw,36px);color:#183c26}
+.welcome-period{color:#5eae3b}
+.welcome-card .auth-subtitle,.signup-card .auth-subtitle{color:#748775;margin-bottom:23px}
+.welcome-card .auth-kicker,.signup-card .auth-kicker{color:#388d33}
+.auth-label-row{display:flex;justify-content:space-between;align-items:end;margin-top:12px;gap:10px}
+.auth-label-row label{margin:0}
+.auth-label-row a{font-size:12px;font-weight:700;text-decoration:none;color:#378e30;white-space:nowrap}
+.welcome-card form label,.signup-card form label{color:#354b39}
+.welcome-card form input,.signup-card form input{border:1px solid #d7e7d4;background:#fbfdfb}
+.welcome-card form input:focus,.signup-card form input:focus{border-color:#71c15e;box-shadow:0 0 0 3px #8bd87a2c}
+.welcome-card .primary-button,.signup-card .primary-button{background:#318e2d;display:flex;justify-content:center;align-items:center;gap:16px;border:0;box-shadow:0 7px 18px #318e2d24}
+.welcome-card .primary-button:hover,.signup-card .primary-button:hover{background:#247d26}
+.welcome-divider{display:flex;align-items:center;gap:11px;font-size:12px;color:#92a093;margin:25px 0 16px}
+.welcome-divider:before,.welcome-divider:after{content:"";flex:1;height:1px;background:#e4ece2}
+.welcome-register-link{display:flex;align-items:center;gap:12px;text-decoration:none;border:1px solid #cbe5c6;border-radius:13px;padding:12px 15px;background:#f0f9ec;color:#2d7131;transition:background .2s}
+.welcome-register-link:hover{background:#e7f6e0}
+.welcome-register-link>span:first-child{font-size:24px}
+.welcome-register-link>span:last-child{margin-left:auto;font-size:22px}
+.welcome-register-link span:nth-child(2){display:grid;gap:3px}
+.welcome-register-link strong{font-size:13px}
+.welcome-register-link small{color:#68896b;font-size:11px}
+.welcome-panel .auth-disclaimer,.signup-panel .auth-disclaimer{color:#859585;font-size:11px;max-width:400px;margin:15px auto 0}
+.signup-steps{display:grid;gap:17px;margin-top:38px}
+.signup-steps>div{display:grid;grid-template-columns:45px 1fr;gap:2px 12px;align-items:center}
+.signup-steps>div>span{grid-row:span 2;width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:#d7edcf;color:#2f8035;font-weight:900;font-family:Nunito,sans-serif}
+.signup-steps strong{color:#23512f;font-family:Nunito,sans-serif}
+.signup-steps small{color:#739176}
+.signup-panel{max-width:570px;padding-top:18px;padding-bottom:18px}
+.signup-card{padding-top:29px;padding-bottom:26px}
+.signup-card .auth-subtitle{margin-bottom:14px}
+.signup-card form{gap:3px}
+.signup-card form>label{margin-top:9px}
+.signup-card input{min-height:43px}
+.auth-handle-wrap{position:relative}
+.auth-handle-wrap>span{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#53945c;font-weight:800}
+.auth-handle-wrap input{padding-left:34px}
+.auth-input-hint{font-size:11px;color:#8c9a8d;margin-top:1px}
+.password-strength{margin:6px 0 0;display:flex;align-items:center;gap:10px}
+.strength-bars{display:flex;gap:4px;width:90px}
+.strength-bars i{height:5px;flex:1;background:#e1ece0;border-radius:4px}
+.strength-bars[data-strength="1"] i:first-child{background:#d9685b}
+.strength-bars[data-strength="2"] i:nth-child(-n+2){background:#f5ae47}
+.strength-bars[data-strength="3"] i:nth-child(-n+3){background:#81bc55}
+.strength-bars[data-strength="4"] i{background:#368e30}
+.password-strength small{font-size:11px;color:#748c78}
+.auth-consent{display:flex!important;align-items:flex-start;gap:10px;margin-top:14px!important;color:#667d6a!important;font-weight:500!important;line-height:1.5}
+.auth-consent input{width:17px;height:17px;min-height:17px;margin:2px 0 0;accent-color:#378c32;flex-shrink:0}
+.auth-consent span{font-size:12px}
+.signup-card .auth-links{margin-top:15px}
+.signup-card .primary-button{margin-top:15px}
+@media(max-width:1000px){.welcome-showcase,.signup-showcase{padding:30px 26px}.auth-layout.welcome-layout,.auth-layout.signup-layout{grid-template-columns:minmax(0,1fr) minmax(390px,.95fr)}}
+@media(max-width:900px){.auth-layout.welcome-layout,.auth-layout.signup-layout{grid-template-columns:1fr}.welcome-showcase,.signup-showcase{display:none}.welcome-panel,.signup-panel{min-height:100svh;padding:25px 15px}.signup-panel{justify-content:center}.welcome-card,.signup-card{max-width:500px;width:100%;margin:0 auto}}
+@media(max-width:420px){.welcome-card,.signup-card{padding:26px 20px}.welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{width:215px}.auth-label-row a{font-size:11px}}
+
+
+/* Refinamento do login para acompanhar a tela de cadastro */
+.auth-layout.welcome-layout{
+  grid-template-columns:minmax(0,1fr) minmax(460px,.88fr);
+  background:#f8fbf6;
+}
+.welcome-showcase{
+  padding:clamp(28px,4.2vw,64px) clamp(26px,5vw,78px);
+}
+.welcome-showcase .showcase-content h2{
+  max-width:560px;
+  font-size:clamp(38px,4vw,60px);
+  line-height:1.08;
+}
+.welcome-hero-photo{
+  width:min(100%,500px);
+  height:clamp(190px,22vw,230px);
+  margin-top:26px;
+  border-radius:22px;
+}
+.welcome-social-proof{gap:8px;margin-top:18px}
+.welcome-social-proof span{padding:8px 11px}
+.welcome-panel{
+  max-width:560px;
+  padding:34px clamp(22px,3.2vw,42px);
+}
+.welcome-panel .auth-logo{margin-bottom:18px}
+.welcome-panel .auth-logo .logo-small{width:220px;max-height:96px}
+.welcome-card{
+  width:100%;
+  padding:34px clamp(25px,3vw,40px);
+  border-radius:22px;
+  box-shadow:0 12px 38px rgba(35,83,40,.08);
+}
+.welcome-card .auth-subtitle{margin-bottom:19px}
+.welcome-card form{gap:5px}
+.welcome-card form>label{margin-top:9px}
+.welcome-card input{min-height:46px}
+.welcome-card .primary-button{min-height:48px;margin-top:15px}
+.welcome-divider{margin:21px 0 14px}
+.welcome-register-link{min-height:58px}
+.welcome-panel .auth-disclaimer{max-width:430px}
+@media(max-width:1000px){
+ .auth-layout.welcome-layout{grid-template-columns:minmax(0,1fr) minmax(410px,.95fr)}
+ .welcome-showcase{padding:30px 28px}
+}
+@media(max-width:900px){
+ .auth-layout.welcome-layout{grid-template-columns:1fr}
+ .welcome-showcase{display:none}
+ .welcome-panel{max-width:520px;padding:24px 16px}
+ .welcome-card{max-width:480px;margin:0 auto}
+}
+@media(max-width:420px){
+ .welcome-panel{padding:22px 13px}
+ .welcome-card{padding:26px 20px}
+ .welcome-panel .auth-logo .logo-small{width:210px}
+}
+
+
+/* Redesign da lateral de apresentação do login: menos ruído e mais foco */
+.welcome-showcase{
+  position:relative;
+  padding:clamp(30px,4.2vw,64px) clamp(28px,5vw,76px);
+  background:
+    radial-gradient(ellipse at 82% 18%,rgba(194,232,167,.72),transparent 34%),
+    linear-gradient(145deg,#f4faef 0%,#e8f5df 55%,#f2f8ec 100%);
+}
+.welcome-showcase .showcase-brand{
+  gap:10px;
+  font-size:25px;
+}
+.welcome-showcase .showcase-brand img{width:42px;height:42px}
+.welcome-showcase .showcase-content{
+  max-width:520px;
+  margin:auto 0;
+}
+.welcome-showcase .welcome-community-tag{
+  padding:8px 12px;
+  font-size:10px;
+  letter-spacing:.025em;
+  background:rgba(215,237,202,.72);
+  border:1px solid rgba(193,224,181,.72);
+}
+.welcome-showcase .showcase-content h2{
+  max-width:500px;
+  margin:20px 0 15px;
+  font-size:clamp(36px,3.55vw,54px);
+  line-height:1.08;
+  letter-spacing:-.045em;
+}
+.welcome-showcase .showcase-content p{
+  max-width:440px;
+  margin:0;
+  font-size:14px;
+  line-height:1.7;
+}
+.welcome-hero-photo{
+  position:relative;
+  width:min(100%,470px);
+  height:clamp(180px,20vw,215px);
+  margin-top:25px;
+  border:0;
+  border-radius:19px;
+  box-shadow:0 14px 34px rgba(41,91,41,.16);
+}
+.welcome-hero-photo>img{
+  object-position:center 52%;
+}
+.welcome-photo-caption{
+  left:12px;
+  right:12px;
+  bottom:12px;
+  padding:10px 14px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:12px;
+  background:rgba(250,251,235,.92);
+  box-shadow:0 4px 16px rgba(18,56,26,.1);
+}
+.welcome-photo-caption span{font-size:22px}
+.welcome-photo-caption strong{font-size:14px}
+.welcome-photo-caption small{font-size:10px}
+.welcome-social-proof{display:none}
+.welcome-showcase .welcome-footer{
+  margin-top:22px;
+  font-size:11px;
+  color:#718a72;
+}
+@media(max-width:1000px){
+ .welcome-showcase{padding:28px 26px}
+ .welcome-showcase .showcase-content h2{font-size:clamp(34px,4vw,48px)}
+ .welcome-hero-photo{height:185px}
+}
+
+
+/* Layouts em largura total: login e cadastro */
+html,body{width:100%;max-width:none}
+body.auth-page{width:100%;min-width:0;max-width:none;margin:0;padding:0;display:block}
+.auth-layout.welcome-layout,.auth-layout.signup-layout{width:100%;max-width:none;margin:0}
+@media(min-width:901px){
+ .auth-layout.welcome-layout,.auth-layout.signup-layout{grid-template-columns:minmax(0,1.05fr) minmax(460px,.95fr)}
+}
+
+
+/* Logotipo de entrada ampliado para melhor leitura. */
+.showcase-brand{font-size:32px!important}
+.showcase-brand img{width:52px!important;height:52px!important}
+.welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+ width:min(260px,100%)!important;
+ max-width:100%!important;
+ height:auto!important;
+}
+@media(max-width:420px){
+ .welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+  width:min(250px,calc(100vw - 54px))!important;
+ }
+}
+
+
+/* Corrige a leitura do login em telas estreitas e dá destaque real à marca. */
+.welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+ width:min(300px,100%)!important;
+ max-width:100%!important;
+ height:auto!important;
+ margin-inline:auto!important;
+}
+.auth-layout.welcome-layout,.auth-layout.signup-layout,
+.welcome-panel,.signup-panel,.welcome-card,.signup-card{
+ min-width:0;
+}
+@media(max-width:900px){
+ .auth-layout.welcome-layout,.auth-layout.signup-layout{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  min-width:0!important;
+  overflow-x:clip;
+ }
+ .welcome-showcase,.signup-showcase{display:none!important}
+ .welcome-panel,.signup-panel{
+  display:flex!important;
+  flex-direction:column;
+  justify-content:center;
+  width:100%!important;
+  max-width:520px!important;
+  min-width:0!important;
+  min-height:100svh;
+  margin:0 auto!important;
+  padding:24px clamp(12px,4vw,20px)!important;
+ }
+ .welcome-card,.signup-card{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-inline:auto!important;
+ }
+ .welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+  width:min(280px,100%)!important;
+  max-width:100%!important;
+ }
+}
+@media(max-width:360px){
+ .welcome-panel .auth-logo .logo-small,.signup-panel .auth-logo .logo-small{
+  width:calc(100vw - 32px)!important;
+ }
+ .welcome-card,.signup-card{padding-inline:18px}
+}
+
+
+/* Marca do EcoGram legível também em telas pequenas, sem o slogan minúsculo. */
+.auth-wordmark{
+ display:flex!important;
+ align-items:center;
+ justify-content:center;
+ gap:10px;
+ width:100%;
+ color:#143d28!important;
+ font:900 clamp(32px,8vw,40px)/1 Nunito,'DM Sans',Arial,sans-serif!important;
+ letter-spacing:-.065em!important;
+ text-decoration:none;
+ white-space:nowrap;
+}
+.auth-wordmark img{
+ display:block;
+ width:56px!important;
+ height:56px!important;
+ max-width:none!important;
+ object-fit:contain;
+ flex:0 0 auto;
+}
+.auth-wordmark span span{color:#35912c}
+@media(max-width:360px){
+ .auth-wordmark{gap:7px;font-size:32px!important}
+ .auth-wordmark img{width:48px!important;height:48px!important}
+}

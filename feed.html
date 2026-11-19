@@ -1,91 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feed - Sustagram</title>
-  <link rel="stylesheet" href="feed.css">
-  <script src="js/script.js" defer></script>
-</head>
-<body>
-
-  <!-- Cabeçalho -->
-  <header>
-    <h1>Sustagram 🌱</h1>
-    <nav>
-      <a href="feed.html" class="active">Feed</a>
-      <a href="explorar.html">Explorar</a>
-      <a href="notificacoes.html">Notificações</a>
-      <a href="perfil.html">Perfil</a>
-      <a href="configuracao.html">⚙️</a>
-    </nav>
-  </header>
-
-  <!-- Stories -->
-  <section class="stories">
-    <div class="story" onclick="openStory('img1.jpg','Maria')">
-      <img src="perfil.png" alt="Maria">
-      <p>Maria</p>
-    </div>
-    <div class="story" onclick="openStory('img2.jpg','Lucas')">
-      <img src="perfil.png" alt="Lucas">
-      <p>Lucas</p>
-    </div>
-    <div class="story" onclick="openStory('img3.jpg','Ana')">
-      <img src="perfil.png" alt="Ana">
-      <p>Ana</p>
-    </div>
-  </section>
-
-  <!-- Feed -->
-  <main>
-    <!-- Post 1 -->
-    <article class="post">
-      <div class="post-header">
-        <img src="perfil.png" alt="Maria Verde" class="perfil">
-        <strong>Maria Verde</strong>
-      </div>
-      <img src="imagem3.png" alt="Postagem de Maria" class="post-img">
-      <div class="perfil.png">
-        <button onclick="like(this)">❤️</button>
-        <button onclick="toggleComment('c1')">💬</button>
-        <button onclick="alert('Compartilhado!')">🔄</button>
-        <span id="likes-count">0 curtidas</span>
-      </div>
-      <div id="c1" class="comments" style="display:none;">
-        <input type="text" placeholder="Adicione um comentário...">
-        <button onclick="sendComment('c1')">Enviar</button>
-      </div>
-    </article>
-
-    <!-- Post 2 -->
-    <article class="post">
-      <div class="post-header">
-        <img src="perfil.png" alt="Lucas Silva" class="perfil">
-        <strong>Lucas Silva</strong>
-      </div>
-      <img src="imagem4.png" alt="Postagem de Lucas" class="post-img">
-      <div class="post-actions">
-        <button onclick="like(this)">❤️</button>
-        <button onclick="toggleComment('c2')">💬</button>
-        <button onclick="alert('Compartilhado!')">🔄</button>
-        <span id="likes-count">0 curtidas</span>
-      </div>
-      <div id="c2" class="comments" style="display:none;">
-        <input type="text" placeholder="Adicione um comentário...">
-        <button onclick="sendComment('c2')">Enviar</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Rodapé -->
-  <footer>
-    <a href="feed.html" class="active">🏠</a>
-    <a href="explorar.html">🔍</a>
-    <a href="postar.html">➕</a>
-    <a href="notificacoes.html">❤️</a>
-    <a href="perfil.html">👤</a>
-  </footer>
-
-</body>
-</html>
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f8f5"><link rel="icon" href="ecogram-mark.svg" type="image/svg+xml"><meta name="description" content="EcoGram — comunidade sustentável."><title>Feed • EcoGram</title><link rel="stylesheet" href="app-ui.css"><link rel="stylesheet" href="ecogram-light.css"><link rel="stylesheet" href="ecogram-social.css"><script type="module" src="app-session.js"></script></head><body><a class="skip-link" href="#main">Pular para o conteúdo</a>
+<div class="mobile-header"><a class="brand" href="feed.html"><img class="brand-word" src="ecogram-logo.svg" alt="EcoGram"></a><div class="mobile-actions"><a href="chat.html" aria-label="Mensagens">✉</a><a href="notificacoes.html" aria-label="Notificações">♡</a></div></div>
+<div class="shell"><aside class="left-rail"><a class="brand" href="feed.html"><img class="brand-word" src="ecogram-logo.svg" alt="EcoGram"></a><nav class="sidebar-nav" aria-label="Navegação principal"><a href="feed.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span>Início</a><a href="explorar.html" class="" ><span class="nav-icon" aria-hidden="true">⌕</span>Explorar</a><a href="postar.html" class="" ><span class="nav-icon" aria-hidden="true">⊕</span>Publicar</a><a href="desafios.html" class="" ><span class="nav-icon" aria-hidden="true">♧</span>Desafios</a><a href="perfil.html" class="" ><span class="nav-icon" aria-hidden="true">◎</span>Perfil</a><a href="chat.html" class="" ><span class="nav-icon" aria-hidden="true">✉</span>Mensagens</a><a href="notificacoes.html" class="" ><span class="nav-icon" aria-hidden="true">♡</span>Atividade</a><a href="ranking.html" class="" ><span class="nav-icon" aria-hidden="true">♕</span>Ranking</a></nav><div class="sidebar-bottom"><a class="green-button" href="postar.html" style="text-align:center">＋ Nova publicação</a><div class="mini-user"><img src="perfil.png" alt=""><div><strong>Minha comunidade</strong><span>@ecogram</span></div></div><span class="small-muted">Cultivando boas ideias 🌱</span></div></aside>
+<main class="main-column" id="main"><div class="page-heading"><p class="eyebrow">COMUNIDADE ECOGRAM</p><h1>Seu feed</h1><p>Gente conectada por um futuro mais verde. 🌱</p></div><p class="form-hint" style="margin-top:-10px;margin-bottom:12px">Stories publicados pela comunidade — expiram após 24 horas</p>
+<section class="surface stories" aria-label="Stories ilustrativos da comunidade"><button type="button" class="story" onclick="startStories(0)"><span class="story-ring" style="background:#d6f0ce"><img src="ecogram-mark.svg" alt=""></span><span>Ver todos</span></button><button type="button" class="story" onclick="openStory('imagem3.png','Maria')"><span class="story-ring"><img src="imagem3.png" alt=""></span><span>Maria</span></button><button type="button" class="story" onclick="openStory('imagem4.png','Lucas')"><span class="story-ring"><img src="imagem4.png" alt=""></span><span>Lucas</span></button><button type="button" class="story" onclick="openStory('imagem2.jpg','Ana')"><span class="story-ring"><img src="imagem2.jpg" alt=""></span><span>Ana</span></button><button type="button" class="story" onclick="openStory('imagemsustentavel.jpg','Natureza')"><span class="story-ring"><img src="imagemsustentavel.jpg" alt=""></span><span>Natureza</span></button></section>
+<div class="surface composer"><img src="perfil.png" alt=""><a href="postar.html">O que você fez pelo planeta hoje? 🌱</a></div>
+<div class="feed-subtitle"><h2>Publicações da comunidade</h2><span class="pill">🌱 Comunidade</span></div>
+<section id="remote-posts" aria-label="Publicações da comunidade" aria-live="polite"></section></main><aside class="right-rail"><section class="right-widget"><h2>🌱 Sua comunidade verde</h2><p>Compartilhe atitudes que fazem a diferença. Descubra histórias e participe de desafios.</p><a href="desafios.html" class="text-link">Conheça os desafios →</a></section><section class="right-widget"><h2>Gente da comunidade</h2><p>Conheça quem também está construindo o EcoGram.</p><div id="community-profiles" aria-live="polite"><p class="form-hint">Carregando perfis...</p></div><a href="explorar.html" class="text-link">Explorar ideias →</a></section><p class="footer-note">EcoGram · Rede social sustentável<br>Projeto acadêmico de desenvolvimento web.</p></aside>
+</div><nav class="bottom-nav" aria-label="Navegação inferior"><a href="feed.html" class="active" aria-current="page"><b aria-hidden="true">⌂</b><span>Início</span></a><a href="explorar.html" class="" ><b aria-hidden="true">⌕</b><span>Explorar</span></a><a href="postar.html" class="" ><b aria-hidden="true">⊕</b><span>Publicar</span></a><a href="desafios.html" class="" ><b aria-hidden="true">♧</b><span>Desafios</span></a><a href="perfil.html" class="" ><b aria-hidden="true">◎</b><span>Perfil</span></a></nav><script type="module" src="ecogram-features.js"></script></body></html>
