@@ -206,3 +206,30 @@ body{background:var(--bg);color:var(--text);line-height:1.5}
  .explore-grid{gap:6px}
  .filter,.challenge-tabs button,.notice-tabs button,.rank-tabs button{padding:7px 11px}
 }
+
+
+/* Layouts das páginas internas em largura total */
+.shell{
+ width:100%;
+ max-width:none;
+ margin:0;
+ grid-template-columns:minmax(190px,235px) minmax(0,1fr) minmax(240px,300px);
+ gap:clamp(18px,2vw,28px);
+ padding-inline:clamp(16px,2vw,30px);
+}
+.main-column,.right-rail{min-width:0;width:100%;max-width:none}
+@media(min-width:761px) and (max-width:1160px){
+ .shell{
+  width:100%;
+  max-width:none;
+  grid-template-columns:minmax(180px,220px) minmax(0,1fr);
+  justify-content:stretch;
+  gap:clamp(16px,2vw,24px);
+  padding-inline:clamp(16px,2vw,26px);
+ }
+ .main-column{width:100%;max-width:none}
+}
+@media(max-width:760px){
+ .shell{width:100%;max-width:none;margin:0;padding:0}
+ .main-column{width:100%;max-width:none}
+}
